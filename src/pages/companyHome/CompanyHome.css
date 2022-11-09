@@ -1,0 +1,24 @@
+#CompanyForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+    width: 50%;
+    margin: auto;
+}
+
+.company-input {
+    padding: 8px 16px;
+    margin: 10px;
+    border-radius: 5px ;
+    border: 1px solid #cccc;
+}
+.company-head{
+    background-color: aqua;
+    margin: 10px;
+   text-align: center;
+}
+#company-btn{
+    margin: 10px;
+
+}

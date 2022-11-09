@@ -1,0 +1,29 @@
+.Cards {
+    width: 24.222%;
+    word-break: break-all;
+    /* margin: auto; */
+    border: 1px  #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.card-img>img {
+    width: 100%;
+}
+.card-title{
+    font-size: 24px;
+    padding: 5px;
+}
+.card-discription{
+    font-size: 20px;
+    padding: 4px
+    
+}
+
+.card-btn{
+    margin: 5px;
+}
+#card-but{
+    width: 100%;
+}

@@ -1,0 +1,30 @@
+.table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+#table-th {
+    background-color: #ccc;
+
+    font-size: 24px;
+    padding: 10px;
+}
+
+#table-td {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.table-main{
+    padding: 64px;
+}
+
+.modal-input{
+    padding: 8px 16px;
+    margin: 5px 0px;
+}
+.modal-btn{
+    display: flex;
+    justify-content: space-between
+}

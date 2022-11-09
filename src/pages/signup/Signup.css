@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center
+}
+
+.CS_Form {
+    border: 1px solid #cccc;
+    padding: 24px;
+    width: 50%;
+}
+
+.head-1 {
+    background-color: aqua;
+}
+
+.form-btn {
+    margin: 10px;
+}
+
+
+.input {
+    width: 100%;
+    padding: 8px 16px;
+}
+
+.radioDiv {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.RadioH {
+    font-size: 24px;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+
+/* drop Down */
+#dropDown {
+    margin: 20px 0px!important;
+}
+
+.selectDropDown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccc;
+    border-radius: 5px;
+}
+
+#dropOption {
+    font-size: 18px;
+}
+
+/* drop Down */
