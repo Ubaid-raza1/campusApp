@@ -48,6 +48,7 @@ const Signup = () => {
           email: formData.email,
           role: formData.role,
           approved: formData.approved,
+          uid: uid,
           experiance: value === "Company" ? "" : formData.experiance,
         })
           .then((res) => {

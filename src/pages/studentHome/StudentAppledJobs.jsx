@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../../Components/navbar/Navbar";
-import SimpleTable from "../../Components/simpleTable/SimpleTable";
+// import SimpleTable from "../../Components/simpleTable/SimpleTable";
+import Table from "../../Components/table/Table"
+// import { IconButton} from "@mui/material";
+import AppsSharpIcon from "@mui/icons-material/AppsSharp";
 
 const StudentAppledJobs = () => {
   const Student = [{ name: "Student", url: "Back", link: "/" }];
@@ -22,7 +25,10 @@ const StudentAppledJobs = () => {
   return (
     <div>
       <Navbar data={Student} />
-      <SimpleTable apply={applied} />
+      <Table
+        data={applied}
+        AppsSharpIcon={AppsSharpIcon}
+      />
     </div>
   );
 };

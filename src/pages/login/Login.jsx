@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import InputFields from "../../Components/inputFields/InputFields";
 import Button from "../../Components/button/Button";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -57,6 +58,9 @@ const Login = () => {
 
           <div className="form-btn">
             <Button value="SignIn" type="submit" />
+          </div>
+          <div>
+            <Link to="/signup">Do You Want To Create Account?</Link>
           </div>
         </form>
       </div>
