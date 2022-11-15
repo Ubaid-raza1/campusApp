@@ -6,14 +6,29 @@ import AppsSharpIcon from "@mui/icons-material/AppsSharp";
 import Table from "../../Components/table/Table";
 import Modals from "../../Components/modal/Modals";
 import DesTable from "../../Components/desTable/DesTable";
+import SimpleButton from "../../Components/button/Button";
 
+let company = [
+  { name: "Company", url: "Job Post", link: "/CompanyJobPost" },
+  { url: "Posted Job", link: "/CompanyPostedJob" },
+];
+const className = {
+  table_main: "table-main",
+  table: "table",
+  table_th: "table-th",
+  table_td: "table-td",
+};
+const table_header = [
+  "No",
+  "Company",
+  "Job Cateogeory",
+  "Education",
+  "Experiance",
+  "Applied",
+];
 const CompanyHome = () => {
   const [user, setUser] = useState();
 
-  let company = [
-    { name: "Company", url: "Job Post", link: "/CompanyJobPost" },
-    { url: "Posted Job", link: "/CompanyPostedJob" },
-  ];
   const state = useSelector((state) => state);
   const [open, setOpen] = useState(false);
 
@@ -41,8 +56,20 @@ const CompanyHome = () => {
   return (
     <div>
       <Navbar data={company} signOut={SignOut} />
-      <Table data={postJob} Cheack={Cheack} AppsSharpIcon={AppsSharpIcon} />
-      <Modals open={open} Cancel={Cancel} DesTable={DesTable} user={user} />
+      <Table
+        data={postJob}
+        header={table_header}
+        Cheack={Cheack}
+        AppsSharpIcon={AppsSharpIcon}
+        className={className}
+      />
+      <Modals
+        open={open}
+        Cancel={Cancel}
+        DesTable={DesTable}
+        user={user}
+        SimpleButton={SimpleButton}
+      />
     </div>
   );
 };

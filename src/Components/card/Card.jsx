@@ -27,6 +27,7 @@ const Cards = ({ cardData }) => {
                 <img src={ApplyImage} alt="" />
               </div>
               <div className="card-discription">
+                <h3 className="dis-body"> {`Company: ${data.companyName} `}</h3>
                 <div className="dis-body">{`Education: ${data.education} `}</div>
                 <div className="dis-body">{`Experiance: ${data.experiance} `}</div>
                 <div className="dis-body">{`Job: ${data.jobCateogeory} `}</div>

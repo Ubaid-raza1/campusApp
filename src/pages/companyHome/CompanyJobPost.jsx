@@ -8,24 +8,26 @@ import { ref, set } from "firebase/database";
 import Menues from "../../Components/menu/Menu";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 
+const InputSelect = [
+  { Lable: "Fresher", Value: "fresher" },
+  { Lable: "Junior", Value: "junior" },
+  { Lable: "Senior", Value: "senior" },
+];
+const InputSelect2 = [
+  { Lable: "Matric", Value: "matric" },
+  { Lable: "Intermediat", Value: "intermediat" },
+  { Lable: "Graduation", Value: "graduation" },
+  { Lable: "Masters", Value: "masters" },
+];
+
 const CompanyJobPost = () => {
   const date = new Date();
   let id = date.getTime().toString();
-  console.log(id);
   const state = useSelector((state) => state);
+
   const [data, setData] = useState({});
   const company = [{ name: "Company", url: "Back", link: "/" }];
-  const InputSelect = [
-    { Lable: "Fresher", Value: "fresher" },
-    { Lable: "Junior", Value: "junior" },
-    { Lable: "Senior", Value: "senior" },
-  ];
-  const InputSelect2 = [
-    { Lable: "Matric", Value: "matric" },
-    { Lable: "Intermediat", Value: "intermediat" },
-    { Lable: "Graduation", Value: "graduation" },
-    { Lable: "Masters", Value: "masters" },
-  ];
+
   const Handle = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -42,6 +44,7 @@ const CompanyJobPost = () => {
       companyId: state.uid,
       id: id,
       studentId: false,
+      companyName: state.user.name,
     });
   };
   return (

@@ -5,10 +5,10 @@ import Navbar from "../../Components/navbar/Navbar";
 import { SignOut } from "../../firebase/Firebase";
 import "./Student.css";
 
+const Student = [
+  { name: "Student", url: "Applied Jobs", link: "/StuedntAppleidJobs" },
+];
 const StudentHome = () => {
-  const Student = [
-    { name: "Student", url: "Applied Jobs", link: "/StuedntAppleidJobs" },
-  ];
   const state = useSelector((state) => state);
   console.log(state.uid);
   const company = Object.entries(state?.companyJobPost);

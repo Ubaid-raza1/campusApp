@@ -15,6 +15,8 @@ import StudentAppledJobs from "../pages/studentHome/StudentAppledJobs";
 import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
 import NotFound from "../pages/notFound/NotFound";
+import Admin from "../pages/admin/Admin";
+import BlockSection from "../pages/admin/BlockSection";
 
 const Router = () => {
   const state = useSelector((state) => state);
@@ -57,11 +59,16 @@ const Router = () => {
   if (state?.loading) return <>Loading......</>;
 
   return (
-    <>
+    <React.Fragment>
       {state.uid ? (
-        <>
-          {role?.role === "Company" ? (
-            <>
+        <React.Fragment>
+          {role?.adminRole === "admin" ? (
+            <Routes>
+              <Route path="/" element={<Admin />} />
+              <Route path="/blockSection" element={<BlockSection />} />
+            </Routes>
+          ) : role?.role === "Company" ? (
+            <React.Fragment>
               <Routes>
                 <Route path="/" element={<CompanyHome />} />
                 <Route path="/CompanyJobPost" element={<CompanyJobPost />} />
@@ -69,11 +76,10 @@ const Router = () => {
                   path="/CompanyPostedJob"
                   element={<CompanyPostedJob />}
                 />
-                {/* <Route path="*" element={<CompanyHome />} /> */}
               </Routes>
-            </>
+            </React.Fragment>
           ) : (
-            <>
+            <React.Fragment>
               <Routes>
                 <Route path="/" element={<StudentHome />} />
                 <Route
@@ -82,18 +88,18 @@ const Router = () => {
                 />
                 <Route path="*" element={<NotFound />} />
               </Routes>
-            </>
+            </React.Fragment>
           )}
-        </>
+        </React.Fragment>
       ) : (
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
           <Route path="*" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/Signup" element={<Signup />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

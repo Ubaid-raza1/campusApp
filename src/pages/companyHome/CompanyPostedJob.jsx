@@ -12,6 +12,20 @@ import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import Menues from "../../Components/menu/Menu";
 import SimpleButton from "../../Components/button/Button";
 
+const className = {
+  table_main: "table-main",
+  table: "table",
+  table_th: "table-th",
+  table_td: "table-td",
+};
+const table_header = [
+  "No",
+  "Company",
+  "Job Cateogeory",
+  "Education",
+  "Experiance",
+];
+
 const CompanyPostedJob = () => {
   const state = useSelector((state) => state);
 
@@ -68,6 +82,8 @@ const CompanyPostedJob = () => {
         IconButton={IconButton}
         DeleteIcon={DeleteIcon}
         BorderColorIcon={BorderColorIcon}
+        className={className}
+        header={table_header}
       />
       <Modals
         open={open}
