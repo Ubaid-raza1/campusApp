@@ -76,9 +76,8 @@ const Modals = ({
             </>
           ) : (
             <>
-              <DesTable user={user} />
-
-              <SimpleButton onClick={Cancel} value="Cancel" color="error"/>
+               <DesTable user={user} /> 
+              <SimpleButton onClick={Cancel} value="Cancel" color="error" />
             </>
           )}
         </Box>

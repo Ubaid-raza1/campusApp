@@ -17,9 +17,9 @@ const StudentHome = () => {
     .flatMap((ele) => ele);
 
   const postJob = companyUpdate.filter((ele) => {
-    return ele.studentId ? !ele.studentId.includes(state.uid) : [];
+    return ele.studentId ? !ele.studentId.includes(state.uid) : [] ;
   });
-
+  console.log()
   return (
     <div className="student-main">
       <Navbar data={Student} signOut={SignOut} />

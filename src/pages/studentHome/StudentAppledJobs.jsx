@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../../Components/navbar/Navbar";
-import Table from "../../Components/table/Table"
+import Table from "../../Components/table/Table";
 import AppsSharpIcon from "@mui/icons-material/AppsSharp";
 const table_header = [
   "No",
@@ -25,7 +25,6 @@ const StudentAppledJobs = () => {
     .map((ele) => ele.splice(1, 2))
     .flatMap((ele) => ele);
 
-  console.log(companyUpdate);
   const applied = companyUpdate.filter((ele) => {
     return ele.studentId
       ? ele.studentId.includes(state.uid)
@@ -35,12 +34,7 @@ const StudentAppledJobs = () => {
   return (
     <div>
       <Navbar data={Student} />
-      <Table
-        data={applied}
-        header={table_header}
-        className={className}
-        // AppsSharpIcon={AppsSharpIcon}
-      />
+      <Table data={applied} header={table_header} className={className} />
     </div>
   );
 };

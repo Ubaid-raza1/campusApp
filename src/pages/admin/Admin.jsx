@@ -6,6 +6,8 @@ import Table from "../../Components/table/Table";
 import SimpleButton from "../../Components/button/Button";
 import DesTable from "../../Components/desTable/DesTable";
 import Modal from "../../Components/modal/Modals";
+import { database } from "../../firebase/Firebase";
+import { ref, update } from "firebase/database";
 
 let admin = [
   { name: "Admin Dashboard", url: "Block Setion", link: "/blockSection" },
@@ -17,6 +19,7 @@ const className = {
   table_td: "table-td",
 };
 const table_header = ["id", "Companies Name", "Job Post", "Experiance"];
+const StuCom = ["id", "Cateogeory", "Name", "Email", "Accepted", "Rejected"];
 
 const Admin = () => {
   const state = useSelector((state) => state);
@@ -29,7 +32,11 @@ const Admin = () => {
   const studentApplyCheak = Object.entries(state?.accounts)
     .map((ele) => ele?.splice(1, 2))
     .flatMap((ele) =>
-      ele?.filter((item) => item?.role === "Student" && id?.includes(item.uid))
+      ele?.filter((item) =>
+        item?.role === "Student" && id
+          ? id?.includes(item.uid)
+          : []?.includes(item.uid)
+      )
     );
 
   const accounts = Object.entries(state?.accounts)
@@ -45,6 +52,19 @@ const Admin = () => {
   };
   const Cancel = () => setOpen(false);
 
+  const Accept = (id) => {
+    update(ref(database, "Accounts/" + id), {
+      approved: true,
+    });
+    
+  };
+  const Reject = (id) => {
+    update(ref(database, "Accounts/" + id), {
+      approved: false,
+    });
+    
+  };
+
   return (
     <>
       <Navbar data={admin} signOut={SignOut} />
@@ -55,7 +75,22 @@ const Admin = () => {
         SimpleButton={SimpleButton}
         ApplyCheack={ApplyCheack}
       />
-      <Table />
+      <Table
+        header={StuCom}
+        className={className}
+        approved={student}
+        SimpleButton={SimpleButton}
+        Accept={Accept}
+        Reject={Reject}
+      />
+      <Table
+        header={StuCom}
+        className={className}
+        approved={company}
+        SimpleButton={SimpleButton}
+        Accept={Accept}
+        Reject={Reject}
+      />
       <Modal
         open={open}
         Cancel={Cancel}
