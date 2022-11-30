@@ -1,66 +1,123 @@
 import React, { useState } from "react";
-import InputFields from "../../Components/inputFields/InputFields";
-import Button from "../../Components/button/Button";
+import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import SchoolIcon from "@mui/icons-material/School";
+import Swal from "sweetalert2";
+import LoadingButtons from "../../Components/loadingButton/LoadingButtons";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const navigate = useNavigate();
   const auth = getAuth();
+  const [loading, setLoading] = React.useState(false);
 
-  const StudentHandler = (event) => {
-    event.preventDefault();
-
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
+  const signupHanlder = (data) => {
+    // console.log(data);
+    // setLoading(false);
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
+        setLoading(true);
         const userSig = userCredential.user;
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
-        console.log("catch", error);
         const errorMessage = error.message;
+        Swal.fire("Sorry!", errorCode, "warning");
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
   };
 
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Required")
+        .max(30, "Must be 30 characters or less")
+        .required("Required"),
+      password: Yup.string()
+        .min(6, "Password in Must be 6 characters or less")
+        .required("Required"),
+    }),
+
+    onSubmit: signupHanlder,
+  });
   return (
     <div className="main-div">
       <div className="form">
-        <form className="CS_Form" onSubmit={StudentHandler}>
-          <h3 className="head-1">CamPus App Form Login</h3>
-
-          <InputFields
-            lable="Email Address"
+        <form className="CS_Form" onSubmit={formik.handleSubmit}>
+          <div className="main-icon">
+            <SchoolIcon
+              style={{
+                fontSize: "50px",
+                color: "#1565c0",
+                marginRight: "10px",
+              }}
+            />
+            <span style={{ fontSize: "20px" }}>Campus App</span>
+          </div>
+          <InputTextFields
+            variant="filled"
+            Lable="Email Address"
             className={"input"}
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                email: e.target.value,
-              })
-            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            name="email"
+            type="email"
           />
-          <InputFields
-            lable="Password"
+          {formik.touched.email && formik.errors.email ? (
+            <div className="error">{formik.errors.email}</div>
+          ) : null}
+          <InputTextFields
+            variant="filled"
+            Lable="Password"
             className={"input"}
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                password: e.target.value,
-              })
-            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            type="password"
+            name="password"
           />
-
+          {formik.touched.password && formik.errors.password ? (
+            <div className="error">{formik.errors.password}</div>
+          ) : null}
           <div className="form-btn">
-            <Button value="SignIn" type="submit" />
+            <LoadingButtons
+              loading={loading}
+              type="submit"
+              id={"btn-form"}
+              variant="contained"
+              value="SignIn"
+              disabled={
+                !formik.values.email.trim() || !formik.values.password.trim()
+              }
+            />
+            {/* <SimpleButton
+              Variant="contained"
+              value="SignIn"
+              type="submit"
+              id={"btn-form"}
+              disabled={
+                !formik.values.email.trim() || !formik.values.password.trim()
+              }
+            /> */}
           </div>
           <div>
-            <Link to="/signup">Do You Want To Create Account?</Link>
+            Do You Want To Create Account?
+            <Link to="/signup" id="form_Link">
+              Signup
+            </Link>
           </div>
         </form>
       </div>

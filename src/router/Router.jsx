@@ -1,94 +1,73 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { ref, onValue } from "firebase/database";
-import { database } from "../firebase/Firebase";
+import Navbar from "../Components/navbar/Navbar";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 import CompanyHome from "../pages/companyHome/CompanyHome";
 import CompanyJobPost from "../pages/companyHome/CompanyJobPost";
 import CompanyPostedJob from "../pages/companyHome/CompanyPostedJob";
+import Profile from "../pages/profile/Profile";
 
 import StudentHome from "../pages/studentHome/StudentHome";
 import StudentAppledJobs from "../pages/studentHome/StudentAppledJobs";
 
 import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
-import NotFound from "../pages/notFound/NotFound";
+// import NotFound from "../pages/notFound/NotFound";
 import Admin from "../pages/admin/Admin";
 import BlockSection from "../pages/admin/BlockSection";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const Router = () => {
   const state = useSelector((state) => state);
-  const role = state.user;
-  const dispatch = useDispatch();
-  const auth = getAuth();
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch({ type: "uid", payload: user.uid });
+  const user = state?.user;
 
-        const userId = auth.currentUser.uid;
-        return onValue(
-          ref(database, "/Accounts/" + userId),
-          (snapshot) => {
-            const userData = (snapshot.val() && snapshot.val()) || "Anonymous";
-            dispatch({ type: "user", payload: userData });
-            // ...
-
-            const companyJobPost = ref(database, "Accounts/");
-            onValue(companyJobPost, (snapshot) => {
-              dispatch({ type: "accounts", payload: snapshot?.val() });
-            });
-
-            const starCountRef = ref(database, "CompanyPostJob/");
-            onValue(starCountRef, (snapshot) => {
-              dispatch({ type: "companyData", payload: snapshot?.val() });
-            });
-          },
-          {
-            onlyOnce: true,
-          }
-        );
-      } else {
-        dispatch({ type: "uid", payload: false });
-      }
-    });
-  }, []);
-
-  if (state?.loading) return <>Loading......</>;
-
+  if (state?.loading)
+    return (
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            height: "100vh",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress  style={{color:"black"}}/>
+        </Box>
+      </>
+    );
   return (
     <React.Fragment>
       {state.uid ? (
         <React.Fragment>
-          {role?.adminRole === "admin" ? (
+          <Navbar Role={user} />
+          {user?.role === "Admin" ? (
+          
+              <Routes>
+                <Route path="/" element={<Admin />} />
+                <Route path="/blockSection" element={<BlockSection />} />
+                <Route path="/profile" element={<Profile />} />
+              </Routes>
+          
+          ) : user?.role === "Company" ? (
             <Routes>
-              <Route path="/" element={<Admin />} />
-              <Route path="/blockSection" element={<BlockSection />} />
+              <Route path="/" element={<CompanyHome />} />
+              <Route path="/CompanyJobPost" element={<CompanyJobPost />} />
+              <Route path="/CompanyPostedJob" element={<CompanyPostedJob />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
-          ) : role?.role === "Company" ? (
-            <React.Fragment>
-              <Routes>
-                <Route path="/" element={<CompanyHome />} />
-                <Route path="/CompanyJobPost" element={<CompanyJobPost />} />
-                <Route
-                  path="/CompanyPostedJob"
-                  element={<CompanyPostedJob />}
-                />
-              </Routes>
-            </React.Fragment>
           ) : (
-            <React.Fragment>
-              <Routes>
-                <Route path="/" element={<StudentHome />} />
-                <Route
-                  path="/StuedntAppleidJobs"
-                  element={<StudentAppledJobs />}
-                />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </React.Fragment>
+            <Routes>
+              <Route path="/" element={<StudentHome />} />
+              <Route
+                path="/StuedntAppleidJobs"
+                element={<StudentAppledJobs />}
+              />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
           )}
         </React.Fragment>
       ) : (

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../../Components/navbar/Navbar";
 import "./CompanyHome.css";
 import Button from "../../Components/button/Button";
 import { database } from "../../firebase/Firebase";
@@ -26,7 +25,6 @@ const CompanyJobPost = () => {
   const state = useSelector((state) => state);
 
   const [data, setData] = useState({});
-  const company = [{ name: "Company", url: "Back", link: "/" }];
 
   const Handle = (e) => {
     let name = e.target.name;
@@ -45,49 +43,48 @@ const CompanyJobPost = () => {
       id: id,
       studentId: false,
       companyName: state.user.name,
+      role: "jobPost",
     });
   };
   return (
     <div className="company">
-      <Navbar data={company} />
-
-      {state.user.approved === true ? (
-        <>
-          <div className="CompanyForm">
-            {/* <div className="company-head">
+      {!!state.user.block && !!state.user.approved ? (
+        <div className="CompanyForm">
+          {/* <div className="company-head">
           <h1>Job Post</h1>
         </div> */}
-            <form id="CompanyForm" onSubmit={CompanyPostHan}>
-              <InputTextFields
-                Lable="Job Cateogeory"
-                className={"menu"}
-                onChange={(e) => Handle(e)}
-                value={data.jobCateogeory}
-                name="jobCateogeory"
-                size="small"
-              />
+          <form id="CompanyForm" onSubmit={CompanyPostHan}>
+            <InputTextFields
+              Lable="Job Cateogeory"
+              className={"menu"}
+              onChange={(e) => Handle(e)}
+              value={data.jobCateogeory}
+              name="jobCateogeory"
+              size="small"
+            />
 
-              <Menues
-                menuData={InputSelect2}
-                className={"company-input"}
-                onChange={(e) => Handle(e)}
-                name="education"
-                value="Education"
-              />
-              <Menues
-                menuData={InputSelect}
-                className={"company-input"}
-                onChange={(e) => Handle(e)}
-                name="experiance"
-                value="Experiance"
-              />
+            <Menues
+              menuData={InputSelect2}
+              className={"company-input"}
+              onChange={(e) => Handle(e)}
+              name="education"
+              value="Education"
+            />
+            <Menues
+              menuData={InputSelect}
+              className={"company-input"}
+              onChange={(e) => Handle(e)}
+              name="experiance"
+              value="Experiance"
+            />
 
-              <Button value="Post" id={"company-btn"} type="submit" />
-            </form>
-          </div>
-        </>
+            <Button value="Post" id={"company-btn"} type="submit" />
+          </form>
+        </div>
+      ) : !!state?.user.block ? (
+        <h1 id="approved">Sorry!</h1>
       ) : (
-        <h1>Your Request is Panding!</h1>
+        <h1 id="approved">block!</h1>
       )}
     </div>
   );

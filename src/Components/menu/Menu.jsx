@@ -4,17 +4,29 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 
 import "./Menu.css";
-const Menues = ({ menuData, onChange, value, name, disabled }) => {
+const Menues = ({
+  menuData,
+  onChange,
+  Value,
+  name,
+  disabled,
+  variant,
+  size,
+  Lable,
+  id
+}) => {
   return (
     <div className="menu-main">
-      <FormControl className="menu" size="small">
-        <InputLabel id="demo-simple-select-helper-label">{value}</InputLabel>
+      <FormControl className="menu" size={size}>
+        {/* <InputLabel >{Value}</InputLabel> */}
         <Select
+          id={id}
           onChange={onChange}
           name={name}
-          label={value}
+          label={Lable}
           disabled={disabled}
-        >
+          variant={variant}
+          >
           {menuData?.map((ele, i) => {
             return (
               <MenuItem value={ele.Value} key={i}>

@@ -1,6 +1,32 @@
-.card{
+.card {
     display: flex;
     flex-wrap: wrap;
     margin: 10px;
     /* justify-content: center; */
+}
+
+#approved {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.noJobSection {
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.NoJobImg {
+    width: 40%;
+}
+
+.noJobSection {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
 }

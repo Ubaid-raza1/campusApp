@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Modals from "../../Components/modal/Modals";
-import Navbar from "../../Components/navbar/Navbar";
-import Table from "../../Components/table/Table";
 import { ref, update, remove } from "firebase/database";
 import { database } from "../../firebase/Firebase";
-import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import Menues from "../../Components/menu/Menu";
 import SimpleButton from "../../Components/button/Button";
+import MuiTable from "../../Components/muitable/MuiTable";
 
 const className = {
   table_main: "table-main",
@@ -35,12 +32,9 @@ const CompanyPostedJob = () => {
 
   const company = [{ name: "Company", url: "Back", link: "/" }];
 
-  const data = Object.entries(state?.companyJobPost);
-  const companyUpdate = data
-    ?.map((ele) => ele?.splice(1, 2))
-    .flatMap((ele) => ele);
+  const companyPostedJob = Object.values(state?.companyJobPost);
 
-  const postJob = companyUpdate.filter((ele) => {
+  const postJob = companyPostedJob.filter((ele) => {
     return ele.companyId === state.uid;
   });
 
@@ -73,18 +67,13 @@ const CompanyPostedJob = () => {
 
   return (
     <div>
-      <Navbar data={company} />
-      <Table
-        data={postJob}
-        Delete={Delete}
-        Edit={Edit}
-        Cancel={Cancel}
-        IconButton={IconButton}
-        DeleteIcon={DeleteIcon}
-        BorderColorIcon={BorderColorIcon}
-        className={className}
-        header={table_header}
-      />
+      {!!state.user.block && !!state.user.approved ? (
+        <MuiTable data={postJob} Delete={Delete} DeleteIcon={DeleteIcon} />
+      ) : !!state?.user.block ? (
+        <h1 id="approved">Sorry!</h1>
+      ) : (
+        <h1 id="approved">block!</h1>
+      )}
       <Modals
         open={open}
         onChange={(e) => UpdateData(e)}

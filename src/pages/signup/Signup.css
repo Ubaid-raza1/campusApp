@@ -4,18 +4,24 @@
     box-sizing: border-box;
 }
 
+.main-div {
+    background-color: #4a4e69;
+}
+
 .form {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     text-align: center
 }
 
 .CS_Form {
-    border: 1px solid #cccc;
+    background-color: #ffff;
     padding: 24px;
     width: 50%;
+    border-radius: 10px
 }
 
 .head-1 {
@@ -26,6 +32,26 @@
     margin: 10px;
 }
 
+#btn-form {
+    /* background-color: #4a4e69; */
+    /* color: white; */
+    width: 50%;
+}
+
+/* #btn-form:disabled,
+#btn-form[disabled] {
+    background-color: #cccccc;
+    color: #666666;
+} */
+
+.main-icon {
+    display: flex;
+    align-items: center;
+}
+
+.under-head {
+    font-size: 20px;
+}
 
 .input {
     width: 100%;
@@ -34,24 +60,34 @@
 
 .radioDiv {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
 }
 
 .RadioH {
-    font-size: 24px;
-    margin: 10px;
-    padding: 10px;
+    font-size: 16px;
+    text-align: start;
+    color: #1565c0;
 }
 
+.menuSection {
+
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 50%
+}
+
+#menuHead {
+    color: #1565c0;
+}
 
 
 /* drop Down */
 #dropDown {
-    margin: 20px 0px!important;
+    margin: 20px 0px !important;
 }
 
 .selectDropDown {
-    width: 100%;
     padding: 10px;
     border: 1px solid #cccc;
     border-radius: 5px;
@@ -61,4 +97,27 @@
     font-size: 18px;
 }
 
-/* drop Down */
+.error {
+    color: red;
+}
+
+#form_Link {
+    text-decoration: none;
+    color: #1565c0;
+}
+
+@media only screen and (max-width:600px) {
+    .CS_Form {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width:336px) {
+    .menuSection {
+        width: 100%
+    }
+
+    .under-head {
+        display: none;
+    }
+}

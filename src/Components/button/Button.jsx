@@ -11,6 +11,7 @@ const SimpleButton = ({
   endIcon,
   Variant,
   style,
+  startIcon,
 }) => {
   return (
     <>
@@ -23,6 +24,7 @@ const SimpleButton = ({
         onClick={onClick}
         color={color}
         endIcon={endIcon}
+        startIcon={startIcon}
       >
         {value}
       </Button>

@@ -11,11 +11,18 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { SignOut } from "../../firebase/Firebase";
+import navbarHelper from "./NavbarHelper";
+import { useDispatch } from "react-redux";
+import SimpleButton from "../button/Button";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const settings = ["Profile", "Logout"];
 
-const Navbar = ({ data, signOut }) => {
+const Navbar = ({ Role }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -35,14 +42,16 @@ const Navbar = ({ data, signOut }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{ background: "linear-gradient(#fff, #4a4e69)" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -53,7 +62,9 @@ const Navbar = ({ data, signOut }) => {
               textDecoration: "none",
             }}
           >
-            {data?.map((name) => name.name)}
+            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+              {Role.role}
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -63,7 +74,7 @@ const Navbar = ({ data, signOut }) => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="black"
             >
               <MenuIcon />
             </IconButton>
@@ -85,9 +96,16 @@ const Navbar = ({ data, signOut }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {data?.map((data) => (
+              {navbarHelper(Role)?.map((data) => (
                 <MenuItem key={data} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{data.url}</Typography>
+                  <Typography textAlign="center">
+                    <Link
+                      to={data.link}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      {data.url}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -96,7 +114,6 @@ const Navbar = ({ data, signOut }) => {
             variant="h5"
             noWrap
             component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -108,10 +125,12 @@ const Navbar = ({ data, signOut }) => {
               textDecoration: "none",
             }}
           >
-            {data?.map((name) => name.name)}
+            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+              {Role.role}
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {data?.map((data) => (
+            {navbarHelper(Role)?.map((data) => (
               <Button
                 key={data}
                 onClick={handleCloseNavMenu}
@@ -122,7 +141,7 @@ const Navbar = ({ data, signOut }) => {
                 }}
               >
                 <Link
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: "none", color: "black" }}
                   to={data.link}
                 >
                   {data.url}
@@ -130,41 +149,57 @@ const Navbar = ({ data, signOut }) => {
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings?.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    onClick={() => signOut(setting)}
-                  >
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {Role?.role === "Admin" ? (
+            <SimpleButton
+              value="SignOut"
+              endIcon={<ExitToAppIcon />}
+              style={{ color: "black", border: "1px solid black" }}
+              Variant="outlined"
+              onClick={() => SignOut(settings[1], dispatch)}
+            />
+          ) : (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={`${
+                      Role?.fileUrl
+                        ? Role?.fileUrl
+                        : "/static/images/avatar/2.jpg"
+                    }`}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings?.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography
+                      textAlign="center"
+                      onClick={() => SignOut(setting, dispatch, navigate)}
+                    >
+                      {setting}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

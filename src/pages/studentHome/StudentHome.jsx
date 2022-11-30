@@ -1,31 +1,37 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Cards from "../../Components/card/Card";
-import Navbar from "../../Components/navbar/Navbar";
-import { SignOut } from "../../firebase/Firebase";
 import "./Student.css";
+import noJob from "../../image/noJobs.webp"
 
-const Student = [
-  { name: "Student", url: "Applied Jobs", link: "/StuedntAppleidJobs" },
-];
 const StudentHome = () => {
   const state = useSelector((state) => state);
-  console.log(state.uid);
-  const company = Object.entries(state?.companyJobPost);
-  const companyUpdate = company
-    ?.map((ele) => ele?.splice(1, 2))
-    .flatMap((ele) => ele);
+  const student = Object.values(state?.companyJobPost);
 
-  const postJob = companyUpdate.filter((ele) => {
-    return ele.studentId ? !ele.studentId.includes(state.uid) : [] ;
+  const postJob = student.filter((ele) => {
+    return ele.studentId ? !ele.studentId.includes(state.uid) : [];
   });
-  console.log()
+  
   return (
     <div className="student-main">
-      <Navbar data={Student} signOut={SignOut} />
-      <div className="card">
-        <Cards cardData={postJob} />
-      </div>
+      {!!state.user.block && !!state.user.approved ? (
+        <>
+          {!postJob?.length ? (
+            <div className="noJobSection">
+              <h2>No Jobs!</h2>
+              <img src={noJob} alt="noJob" className="NoJobImg" />
+            </div>
+          ) : (
+            <div className="card">
+              <Cards cardData={postJob} />
+            </div>
+          )}
+        </>
+      ) : !!state?.user.block ? (
+        <h1 id="approved">Sorry!</h1>
+      ) : (
+        <h1 id="approved">block!</h1>
+      )}
     </div>
   );
 };

@@ -1,0 +1,47 @@
+.profile-main {
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#avatar {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    object-fit: cover;
+    
+}
+
+.avatar-img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-data {
+    text-align: center;
+    padding: 10px 0px;
+}
+
+
+
+.icon-avatar {
+    position: absolute;
+    bottom: 1px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    opacity: 0.6;
+}
+
+.profile-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-img>input {
+    display: none;
+}

@@ -1,31 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Navbar from "../../Components/navbar/Navbar";
-import Table from "../../Components/table/Table";
-import AppsSharpIcon from "@mui/icons-material/AppsSharp";
-const table_header = [
-  "No",
-  "Company Name",
-  "Job Cateogeory",
-  "Education",
-  "Experiance",
-];
+import MuiTable from "../../Components/muitable/MuiTable";
+
 const className = {
   table_main: "table-main",
   table: "table",
-  table_th: "table-th",
-  table_td: "table-td",
 };
+
 const StudentAppledJobs = () => {
-  const Student = [{ name: "Student", url: "Back", link: "/" }];
   const state = useSelector((state) => state);
 
-  const data = Object.entries(state?.companyJobPost);
-  const companyUpdate = data
-    .map((ele) => ele.splice(1, 2))
-    .flatMap((ele) => ele);
+  const studentApplied = Object.values(state?.companyJobPost);
 
-  const applied = companyUpdate.filter((ele) => {
+  const applied = studentApplied.filter((ele) => {
     return ele.studentId
       ? ele.studentId.includes(state.uid)
       : [] && ele.experiance?.toLowerCase() === state.accounts.experiance;
@@ -33,8 +20,14 @@ const StudentAppledJobs = () => {
 
   return (
     <div>
-      <Navbar data={Student} />
-      <Table data={applied} header={table_header} className={className} />
+      {!!state.user.block && !!state.user.approved ? (
+        <MuiTable data={applied}/>
+        // <DesTable user={applied} mainStyle={className} />
+      ) : !!state?.user.block ? (
+        <h1 id="approved">Sorry!</h1>
+      ) : (
+        <h1 id="approved">block!</h1>
+      )}
     </div>
   );
 };

@@ -1,8 +1,10 @@
 .menu-main {
-    /* display: flex; */
+    display: flex;
     margin: 5px 0px;
 }
 
 .menu {
-    width: 100%;
+    width: 50%;
+    
+    
 }

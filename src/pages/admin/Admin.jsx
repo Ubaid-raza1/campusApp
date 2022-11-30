@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import Navbar from "../../Components/navbar/Navbar";
-import { SignOut } from "../../firebase/Firebase";
-import Table from "../../Components/table/Table";
 import SimpleButton from "../../Components/button/Button";
-import DesTable from "../../Components/desTable/DesTable";
 import Modal from "../../Components/modal/Modals";
 import { database } from "../../firebase/Firebase";
 import { ref, update } from "firebase/database";
+import MuiTable from "../../Components/muitable/MuiTable";
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import DesTable from "../../Components/desTable/DesTable";
 
-let admin = [
-  { name: "Admin Dashboard", url: "Block Setion", link: "/blockSection" },
-];
 const className = {
   table_main: "table-main",
   table: "table",
@@ -22,29 +19,26 @@ const table_header = ["id", "Companies Name", "Job Post", "Experiance"];
 const StuCom = ["id", "Cateogeory", "Name", "Email", "Accepted", "Rejected"];
 
 const Admin = () => {
+  // const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [id, setId] = useState();
   const [open, setOpen] = useState(false);
-  const user = Object.entries(state.companyJobPost)
-    .map((ele) => ele.splice(1, 2))
-    .flatMap((item) => item);
+  const user = Object.values(state?.companyJobPost);
 
-  const studentApplyCheak = Object.entries(state?.accounts)
-    .map((ele) => ele?.splice(1, 2))
-    .flatMap((ele) =>
-      ele?.filter((item) =>
-        item?.role === "Student" && id
-          ? id?.includes(item.uid)
-          : []?.includes(item.uid)
-      )
-    );
+  const studentApplyCheak = Object.values(state?.accounts);
 
-  const accounts = Object.entries(state?.accounts)
-    .map((ele) => ele?.splice(1, 2))
-    .flatMap((item) => item);
+  const cheackData = studentApplyCheak.filter((ele) => {
+    return ele?.role === "Student" && id
+      ? id?.includes(ele.uid)
+      : []?.includes(ele.uid);
+  });
 
-  const student = accounts.filter((ele) => ele.role === "Student");
-  const company = accounts.filter((ele) => ele.role === "Company");
+  const accounts = Object.values(state?.accounts);
+  const arr = accounts?.filter(
+    (ele) => ele?.role === "Student" || ele?.role === "Company"
+  );
+  const updateArr = arr?.filter((item)=> !item?.approved && !item?.reject)
+
 
   const ApplyCheack = (id) => {
     setId(id);
@@ -52,50 +46,38 @@ const Admin = () => {
   };
   const Cancel = () => setOpen(false);
 
-  const Accept = (id) => {
-    update(ref(database, "Accounts/" + id), {
+  const Accept = async (id) => {
+    await update(ref(database, "Accounts/" + id), {
       approved: true,
     });
-    
   };
-  const Reject = (id) => {
-    update(ref(database, "Accounts/" + id), {
-      approved: false,
+  const Reject = async (id) => {
+    await update(ref(database, "Accounts/" + id), {
+      reject: true,
     });
-    
   };
 
   return (
     <>
-      <Navbar data={admin} signOut={SignOut} />
-      <Table
-        User={user}
-        className={className}
-        header={table_header}
+      <MuiTable
+        data={user}
         SimpleButton={SimpleButton}
         ApplyCheack={ApplyCheack}
       />
-      <Table
-        header={StuCom}
-        className={className}
-        approved={student}
+      <MuiTable
+        data={updateArr}
         SimpleButton={SimpleButton}
         Accept={Accept}
         Reject={Reject}
+        Icon={ThumbUpAltIcon}
+        Icon2={ThumbDownIcon}
       />
-      <Table
-        header={StuCom}
-        className={className}
-        approved={company}
-        SimpleButton={SimpleButton}
-        Accept={Accept}
-        Reject={Reject}
-      />
+
       <Modal
         open={open}
         Cancel={Cancel}
+        user={cheackData}
         DesTable={DesTable}
-        user={studentApplyCheak}
         SimpleButton={SimpleButton}
       />
     </>

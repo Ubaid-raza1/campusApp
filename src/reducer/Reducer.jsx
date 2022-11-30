@@ -4,6 +4,7 @@ let initialState = {
   accounts: [],
   uid: false,
   loading: true,
+  imageUrl: false,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -12,13 +13,13 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        loading: false,
       };
 
     case "uid":
       return {
         ...state,
         uid: action.payload,
-        loading: false,
       };
 
     case "companyData":
@@ -30,6 +31,11 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         accounts: action.payload ? action.payload : [],
+      };
+    case "imageUrl":
+      return {
+        ...state,
+        imageUrl: [...state, action.payload],
       };
 
     default:
