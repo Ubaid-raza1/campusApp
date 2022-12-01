@@ -18,7 +18,7 @@ const StudentHome = () => {
         <>
           {!postJob?.length ? (
             <div className="noJobSection">
-              <h2>No Jobs!</h2>
+              <h2 style={{fontSize:"34px"}}>No Jobs!</h2>
               <img src={noJob} alt="noJob" className="NoJobImg" />
             </div>
           ) : (
@@ -28,7 +28,7 @@ const StudentHome = () => {
           )}
         </>
       ) : !!state?.user.block ? (
-        <h1 id="approved">Sorry!</h1>
+        <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">block!</h1>
       )}

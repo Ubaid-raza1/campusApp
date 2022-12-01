@@ -33,16 +33,8 @@
 }
 
 #btn-form {
-    /* background-color: #4a4e69; */
-    /* color: white; */
     width: 50%;
 }
-
-/* #btn-form:disabled,
-#btn-form[disabled] {
-    background-color: #cccccc;
-    color: #666666;
-} */
 
 .main-icon {
     display: flex;

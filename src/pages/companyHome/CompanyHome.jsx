@@ -5,6 +5,7 @@ import Modals from "../../Components/modal/Modals";
 import SimpleButton from "../../Components/button/Button";
 import MuiTable from "../../Components/muitable/MuiTable";
 import DesTable from "../../Components/desTable/DesTable";
+import notAvailable from "../../image/notAvailable.jpg";
 
 const className = {
   table_main: "table-main",
@@ -38,9 +39,19 @@ const CompanyHome = () => {
   return (
     <div>
       {!!state.user.block && !!state.user.approved ? (
-        <MuiTable data={postJob} AppsSharpIcon={AppsSharpIcon} Check={Check} />
+        postJob?.length === 0 ? (
+          <div className="notAvailable">
+            <span style={{fontSize:"30px"}}>User data</span> <img src={notAvailable} alt="" />
+          </div>
+        ) : (
+          <MuiTable
+            data={postJob}
+            AppsSharpIcon={AppsSharpIcon}
+            Check={Check}
+          />
+        )
       ) : !!state?.user.block ? (
-        <h1 id="approved">Sorry!</h1>
+        <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">block!</h1>
       )}

@@ -1,31 +1,44 @@
-#CompanyForm {
+.postForm {
+    display: flex;
+    height: 80vh;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.CompanyForm {
+    width: 100%;
+    margin: 4px 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 80vh;
-    width: 50%;
-    margin: auto;
 }
 
 .company-input {
-    padding: 8px 16px;
-    margin: 10px;
-    border-radius: 5px ;
-    border: 1px solid #cccc;
-}
-.company-head{
-    background-color: aqua;
-    margin: 10px;
-   text-align: center;
-}
-#company-btn{
-    margin: 10px;
-
+    width: 50%;
 }
 
-#approved{
+#company-input {
+    width: 50%;
+
+}
+#postFrom-btn{
+    width: 25%;
+}
+
+#approved {
     display: flex;
     height: 100vh;
     justify-content: center;
     align-items: center;
+}
+
+.postHead {
+    color: blue;
+}
+
+@media only screen and (max-width:600px) {
+    .CompanyForm {
+        width: 100%;
+    }
 }

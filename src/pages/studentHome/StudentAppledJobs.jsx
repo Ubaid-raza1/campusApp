@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import MuiTable from "../../Components/muitable/MuiTable";
+import notAvailable from "../../image/notAvailable.jpg";
 
 const className = {
   table_main: "table-main",
@@ -21,10 +22,16 @@ const StudentAppledJobs = () => {
   return (
     <div>
       {!!state.user.block && !!state.user.approved ? (
-        <MuiTable data={applied}/>
-        // <DesTable user={applied} mainStyle={className} />
+        applied?.length === 0 ? (
+          <div className="notAvailable">
+            <span style={{ fontSize: "30px" }}>Applied Jobs</span>
+            <img src={notAvailable} alt="" />
+          </div>
+        ) : (
+          <MuiTable data={applied} />
+        )
       ) : !!state?.user.block ? (
-        <h1 id="approved">Sorry!</h1>
+        <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">block!</h1>
       )}

@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { ref, set } from "firebase/database";
 import Menues from "../../Components/menu/Menu";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const InputSelect = [
   { Lable: "Fresher", Value: "fresher" },
@@ -24,19 +26,10 @@ const CompanyJobPost = () => {
   let id = date.getTime().toString();
   const state = useSelector((state) => state);
 
-  const [data, setData] = useState({});
-
-  const Handle = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    setData((values) => ({ ...values, [name]: value }));
-  };
-  const CompanyPostHan = (e) => {
-    e.preventDefault();
-
+  const jobPostHandler = (data) => {
     const postListRef = ref(database, "/CompanyPostJob/" + id);
     set(postListRef, {
-      jobCateogeory: data.jobCateogeory,
+      jobCategory: data.jobCategory,
       experiance: data.experiance,
       education: data.education,
       companyId: state.uid,
@@ -44,45 +37,98 @@ const CompanyJobPost = () => {
       studentId: false,
       companyName: state.user.name,
       role: "jobPost",
+      address: data.location,
     });
   };
+
+  const formik = useFormik({
+    initialValues: {
+      jobCategory: "",
+      location: "",
+      education: "",
+      experiance: "",
+    },
+
+    validationSchema: Yup.object({
+      jobCategory: Yup.string()
+        .max(40, "job Category in Must be 40 characters or less")
+        .required("Required"),
+      location: Yup.string()
+        .max(100, "Address in Must be 100 characters or less")
+        .required("Required"),
+    }),
+
+    onSubmit: jobPostHandler,
+  });
   return (
     <div className="company">
       {!!state.user.block && !!state.user.approved ? (
-        <div className="CompanyForm">
-          {/* <div className="company-head">
-          <h1>Job Post</h1>
-        </div> */}
-          <form id="CompanyForm" onSubmit={CompanyPostHan}>
+        <div className="postForm">
+          <form className="CompanyForm" onSubmit={formik.handleSubmit}>
+            <h1 className="postHead">Post Jobs!</h1>
             <InputTextFields
-              Lable="Job Cateogeory"
-              className={"menu"}
-              onChange={(e) => Handle(e)}
-              value={data.jobCateogeory}
-              name="jobCateogeory"
+              Lable="Job Category"
+              className={"company-input"}
+              onChange={formik?.handleChange}
+              onBlur={formik?.handleBlur}
+              value={formik?.values?.jobCategory}
+              name="jobCategory"
               size="small"
             />
-
+            {formik.touched.jobCategory && formik.errors.jobCategory ? (
+              <div className="error">{formik.errors.jobCategory}</div>
+            ) : null}
+            <InputTextFields
+              Lable="Address"
+              className={"company-input"}
+              onChange={formik?.handleChange}
+              onBlur={formik?.handleBlur}
+              value={formik?.values?.location}
+              multiline
+              rows={4}
+              name="location"
+              size="small"
+            />
+            {formik.touched.location && formik.errors.location ? (
+              <div className="error">{formik.errors.location}</div>
+            ) : null}
             <Menues
               menuData={InputSelect2}
               className={"company-input"}
-              onChange={(e) => Handle(e)}
+              onChange={formik?.handleChange}
+              onBlur={formik?.handleBlur}
+              value={formik?.values?.education}
               name="education"
-              value="Education"
+              // value="Education"
+              Lable="Education"
             />
             <Menues
               menuData={InputSelect}
               className={"company-input"}
-              onChange={(e) => Handle(e)}
+              onChange={formik?.handleChange}
+              onBlur={formik?.handleBlur}
+              value={formik?.values?.education}
               name="experiance"
-              value="Experiance"
+              // value="Experiance"
+              Lable="Experiance"
             />
 
-            <Button value="Post" id={"company-btn"} type="submit" />
+            <Button
+              value="Post"
+              type="submit"
+              id={"postFrom-btn"}
+              Variant="contained"
+              disabled={
+                !formik?.values.jobCategory.trim() ||
+                !formik?.values.location.trim() ||
+                !formik?.values.education.trim() ||
+                !formik?.values.experiance.trim()
+              }
+            />
           </form>
         </div>
       ) : !!state?.user.block ? (
-        <h1 id="approved">Sorry!</h1>
+        <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">block!</h1>
       )}

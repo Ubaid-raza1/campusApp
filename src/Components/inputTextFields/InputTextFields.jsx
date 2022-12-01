@@ -10,6 +10,10 @@ const InputTextFields = ({
   size,
   variant,
   type,
+  rows,
+  onBlur,
+  multiline,
+ 
 }) => {
   return (
     <div className="menu-main">
@@ -21,6 +25,10 @@ const InputTextFields = ({
         size={size}
         variant={variant}
         type={type}
+        rows={rows}
+        onBlur={onBlur}
+        multiline={multiline}
+      
       />
     </div>
   );

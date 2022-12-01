@@ -36,6 +36,7 @@ const Signup = () => {
           email: data.email,
           role: value,
           approved: false,
+          reject: false,
           block: true,
           uid: uid,
           experiance: value === "Company" ? "" : data.experiance,
@@ -165,7 +166,7 @@ const Signup = () => {
                 Lable="Experiance"
                 variant="standard"
                 size="small"
-                id="menu"
+                className={"company-input"}
               />
             </div>
           )}

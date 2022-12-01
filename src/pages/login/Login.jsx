@@ -14,8 +14,6 @@ const Login = () => {
   const [loading, setLoading] = React.useState(false);
 
   const signupHanlder = (data) => {
-    // console.log(data);
-    // setLoading(false);
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
@@ -103,15 +101,7 @@ const Login = () => {
                 !formik.values.email.trim() || !formik.values.password.trim()
               }
             />
-            {/* <SimpleButton
-              Variant="contained"
-              value="SignIn"
-              type="submit"
-              id={"btn-form"}
-              disabled={
-                !formik.values.email.trim() || !formik.values.password.trim()
-              }
-            /> */}
+           
           </div>
           <div>
             Do You Want To Create Account?

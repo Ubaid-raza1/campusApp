@@ -30,3 +30,15 @@
     justify-content: center;
     padding: 10px 0px;
 }
+
+.notAvailable {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.notAvailable>img {
+    width: 30%;
+}

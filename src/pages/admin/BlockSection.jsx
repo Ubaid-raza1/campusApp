@@ -23,7 +23,7 @@ const BlockSection = () => {
   const student = blockData.filter((ele) => ele.role === "Student");
   const company = blockData.filter((ele) => ele.role === "Company");
 
-  // console.log("=);
+ 
   const block = async (id) => {
     await update(ref(database, "Accounts/" + id), {
       block: false,
@@ -33,22 +33,34 @@ const BlockSection = () => {
     await update(ref(database, "Accounts/" + id), {
       block: true,
     });
-    // console.log(id);
+    
   };
   return (
     <>
-      <MuiTable
-        data={student}
-        block={block}
-        unBlock={unBlock}
-        SimpleButton={SimpleButton}
-      />
-      <MuiTable
-        data={company}
-        block={block}
-        unBlock={unBlock}
-        SimpleButton={SimpleButton}
-      />
+      {student?.length === 0 ? (
+        <div className="adminNotData">
+          <h3>Students Accounts Not Available?</h3>
+        </div>
+      ) : (
+        <MuiTable
+          data={student}
+          block={block}
+          unBlock={unBlock}
+          SimpleButton={SimpleButton}
+        />
+      )}
+      {company?.length === 0 ? (
+        <div className="adminNotData">
+          <h3>Companies Accounts Not Available?</h3>
+        </div>
+      ) : (
+        <MuiTable
+          data={company}
+          block={block}
+          unBlock={unBlock}
+          SimpleButton={SimpleButton}
+        />
+      )}
     </>
   );
 };

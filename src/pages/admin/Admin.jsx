@@ -5,8 +5,8 @@ import Modal from "../../Components/modal/Modals";
 import { database } from "../../firebase/Firebase";
 import { ref, update } from "firebase/database";
 import MuiTable from "../../Components/muitable/MuiTable";
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import DesTable from "../../Components/desTable/DesTable";
 
 const className = {
@@ -37,8 +37,7 @@ const Admin = () => {
   const arr = accounts?.filter(
     (ele) => ele?.role === "Student" || ele?.role === "Company"
   );
-  const updateArr = arr?.filter((item)=> !item?.approved && !item?.reject)
-
+  const updateArr = arr?.filter((item) => !item?.approved && !item?.reject);
 
   const ApplyCheack = (id) => {
     setId(id);
@@ -52,6 +51,7 @@ const Admin = () => {
     });
   };
   const Reject = async (id) => {
+    console.log(id);
     await update(ref(database, "Accounts/" + id), {
       reject: true,
     });
@@ -59,19 +59,31 @@ const Admin = () => {
 
   return (
     <>
-      <MuiTable
-        data={user}
-        SimpleButton={SimpleButton}
-        ApplyCheack={ApplyCheack}
-      />
-      <MuiTable
-        data={updateArr}
-        SimpleButton={SimpleButton}
-        Accept={Accept}
-        Reject={Reject}
-        Icon={ThumbUpAltIcon}
-        Icon2={ThumbDownIcon}
-      />
+      {user?.length === 0 ? (
+        <div className="adminNotData">
+          <h3>Company Posted Jobs Not available sorry?</h3>
+        </div>
+      ) : (
+        <MuiTable
+          data={user}
+          SimpleButton={SimpleButton}
+          ApplyCheack={ApplyCheack}
+        />
+      )}
+      {updateArr?.length === 0 ? (
+       <div className="adminNotData">
+       <h3>Accounts Not Available?</h3>
+     </div>
+      ) : (
+        <MuiTable
+          data={updateArr}
+          SimpleButton={SimpleButton}
+          Accept={Accept}
+          Reject={Reject}
+          Icon={ThumbUpAltIcon}
+          Icon2={ThumbDownIcon}
+        />
+      )}
 
       <Modal
         open={open}

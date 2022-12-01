@@ -13,12 +13,13 @@ const Menues = ({
   variant,
   size,
   Lable,
-  id
+  id,
+  className,
 }) => {
   return (
     <div className="menu-main">
-      <FormControl className="menu" size={size}>
-        {/* <InputLabel >{Value}</InputLabel> */}
+      <FormControl className={className} size={size}>
+        <InputLabel>{Lable}</InputLabel>
         <Select
           id={id}
           onChange={onChange}
@@ -26,7 +27,7 @@ const Menues = ({
           label={Lable}
           disabled={disabled}
           variant={variant}
-          >
+        >
           {menuData?.map((ele, i) => {
             return (
               <MenuItem value={ele.Value} key={i}>
