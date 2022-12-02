@@ -1,25 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import ApplyImage from "../../image/ApplyImage.png";
-import SimpleButton from "../button/Button";
-import { ref, child, push, update } from "firebase/database";
-import { database } from "../../firebase/Firebase";
+
 import "./Card.css";
 
-const Cards = ({ cardData }) => {
-  const state = useSelector((state) => state);
-  const apply = (id, data) => {
-    const postListRef = ref(database, "CompanyPostJob/" + id);
-    return update(postListRef, {
-      studentId: [state.uid, ...(data ? data : [])],
-    });
-  };
-  const myData = cardData.filter(
-    (item) => item.experiance == state.user.experiance
-  );
+const Cards = ({ cardData, apply, SimpleButton ,Detail}) => {
   return (
     <React.Fragment>
-      {myData?.map((data, i) => {
+      {cardData?.map((data, i) => {
         return (
           <div className="Cards" key={i}>
             <div className="card-body">
@@ -28,17 +15,27 @@ const Cards = ({ cardData }) => {
               </div>
               <div className="card-discription">
                 <h3 className="dis-body">{`Company: ${data?.companyName} `}</h3>
-                <div className="dis-body">{`Education: ${data?.education} `}</div>
+                {/* <div className="dis-body">{`Education: ${data?.education} `}</div>
                 <div className="dis-body">{`Experiance: ${data?.experiance} `}</div>
-                <div className="dis-body">{`Job: ${data?.jobCategory} `}</div>
+                <div className="dis-body">{`Job: ${data?.jobCategory} `}</div> */}
               </div>
             </div>
 
             <div className="card-btn">
               <SimpleButton
-                value="Apply"
+                value="Job Detail"
                 id="card-but"
                 color="success"
+                Variant="contained"
+                onClick={() => Detail(data?.id, data?.studentId)}
+              />
+            </div>
+            <div className="card-btn">
+              <SimpleButton
+                value="Apply"
+                id="card-but"
+                color="primary"
+                Variant="contained"
                 onClick={() => apply(data?.id, data?.studentId)}
               />
             </div>

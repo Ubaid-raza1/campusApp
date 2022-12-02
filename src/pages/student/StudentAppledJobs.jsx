@@ -33,7 +33,7 @@ const StudentAppledJobs = () => {
       ) : !!state?.user.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
-        <h1 id="approved">block!</h1>
+        <h1 id="approved">You are Block Please Contact Admin!</h1>
       )}
     </div>
   );

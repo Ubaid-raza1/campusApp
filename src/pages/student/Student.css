@@ -1,16 +1,11 @@
 .card {
     display: flex;
     flex-wrap: wrap;
+    /* width: 50%; */
+    justify-content: center;
     margin: 10px;
-    /* justify-content: center; */
 }
 
-#approved {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-}
 
 .noJobSection {
     display: flex;
@@ -35,8 +30,7 @@
     height: 80vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center;    
 }
 
 .notAvailable>img {

@@ -41,7 +41,7 @@ const CompanyHome = () => {
       {!!state.user.block && !!state.user.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
-            <span style={{fontSize:"30px"}}>User data</span> <img src={notAvailable} alt="" />
+            <span style={{fontSize:"30px"}}>Company data</span> <img src={notAvailable} alt="" />
           </div>
         ) : (
           <MuiTable
@@ -53,7 +53,7 @@ const CompanyHome = () => {
       ) : !!state?.user.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
-        <h1 id="approved">block!</h1>
+        <h1 id="approved">You are Block Please Contact Admin!</h1>
       )}
       <Modals
         open={open}

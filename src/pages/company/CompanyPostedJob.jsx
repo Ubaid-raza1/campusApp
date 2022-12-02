@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { ref, remove } from "firebase/database";
 import { database } from "../../firebase/Firebase";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MuiTable from "../../Components/muitable/MuiTable";
 import notAvailable from "../../image/notAvailable.jpg";
+import Swal from "sweetalert2";
 
-const className = {
-  table_main: "table-main",
-  table: "table",
-  table_th: "table-th",
-  table_td: "table-td",
-};
+// const className = {
+//   table_main: "table-main",
+//   table: "table",
+//   table_th: "table-th",
+//   table_td: "table-td",
+// };
 
 const CompanyPostedJob = () => {
   const state = useSelector((state) => state);
@@ -23,7 +24,20 @@ const CompanyPostedJob = () => {
   });
 
   const Delete = (delId) => {
-    remove(ref(database, "CompanyPostJob/" + delId));
+    Swal.fire({
+      title: "Do you want to Detele the Posted Job?",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+      confirmButtonColor: "red",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Deleted!",
+          remove(ref(database, "CompanyPostJob/" + delId)),
+          "success"
+        );
+      } 
+    });
   };
 
   return (
@@ -31,7 +45,7 @@ const CompanyPostedJob = () => {
       {!!state.user.block && !!state.user.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
-            <span style={{ fontSize: "30px" }}>User data</span>{" "}
+            <span style={{ fontSize: "30px" }}>Company data</span>{" "}
             <img src={notAvailable} alt="" />
           </div>
         ) : (
@@ -40,8 +54,9 @@ const CompanyPostedJob = () => {
       ) : !!state?.user.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
-        <h1 id="approved">block!</h1>
+        <h1 id="approved">You are Block Please Contact Admin!</h1>
       )}
+      
     </div>
   );
 };

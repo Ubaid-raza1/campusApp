@@ -8,6 +8,7 @@ import Menues from "../../Components/menu/Menu";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 
 const InputSelect = [
   { Lable: "Fresher", Value: "fresher" },
@@ -38,7 +39,13 @@ const CompanyJobPost = () => {
       companyName: state.user.name,
       role: "jobPost",
       address: data.location,
-    });
+    }).then((res)=>{
+      Swal.fire(
+        'Good job!',
+        'You are job is posted!',
+        'success'
+      )
+    })
   };
 
   const formik = useFormik({
@@ -67,7 +74,7 @@ const CompanyJobPost = () => {
           <form className="CompanyForm" onSubmit={formik.handleSubmit}>
             <h1 className="postHead">Post Jobs!</h1>
             <InputTextFields
-              Lable="Job Category"
+              Lable="Job Title"
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
@@ -112,25 +119,26 @@ const CompanyJobPost = () => {
               // value="Experiance"
               Lable="Experiance"
             />
-
-            <Button
-              value="Post"
-              type="submit"
-              id={"postFrom-btn"}
-              Variant="contained"
-              disabled={
-                !formik?.values.jobCategory.trim() ||
-                !formik?.values.location.trim() ||
-                !formik?.values.education.trim() ||
-                !formik?.values.experiance.trim()
-              }
-            />
+            <div className="postJob-btn">
+              <Button
+                value="Post"
+                type="submit"
+                id={"postFrom-btn"}
+                Variant="contained"
+                disabled={
+                  !formik?.values.jobCategory.trim() ||
+                  !formik?.values.location.trim() ||
+                  !formik?.values.education.trim() ||
+                  !formik?.values.experiance.trim()
+                }
+              />
+            </div>
           </form>
         </div>
       ) : !!state?.user.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
-        <h1 id="approved">block!</h1>
+        <h1 id="approved">You are Block Please Contact Admin!</h1>
       )}
     </div>
   );

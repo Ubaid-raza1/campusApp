@@ -156,6 +156,7 @@ const Navbar = ({ Role }) => {
               style={{ color: "black", border: "1px solid black" }}
               Variant="outlined"
               onClick={() => SignOut(settings[1], dispatch)}
+              size="small"
             />
           ) : (
             <Box sx={{ flexGrow: 0 }}>

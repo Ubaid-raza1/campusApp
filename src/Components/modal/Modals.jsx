@@ -9,36 +9,13 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 800,
+  width: "50%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
 };
 
-const Modals = ({
-  onChange,
-  open,
-  update,
-  cancel,
-  InputTextFields,
-  Menues,
-  SimpleButton,
-  Cancel,
-  DesTable,
-  user,
-}) => {
-  const InputSelect = [
-    { Lable: "Fresher", Value: "fresher" },
-    { Lable: "Junior", Value: "junior" },
-    { Lable: "Senior", Value: "senior" },
-  ];
-  const InputSelect2 = [
-    { Lable: "Matric", Value: "matric" },
-    { Lable: "Intermediat", Value: "intermediat" },
-    { Lable: "Graduation", Value: "graduation" },
-    { Lable: "Masters", Value: "masters" },
-  ];
-
+const Modals = ({ open, SimpleButton, Cancel, DesTable, user, data }) => {
   return (
     <>
       <Modal
@@ -47,36 +24,49 @@ const Modals = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {InputTextFields ? (
-            <>
-              <InputTextFields
-                className={"menu"}
-                onChange={onChange}
-                name="jobCateogeory"
-                Lable="Job Cateogeory"
-                size="small"
-              />
-
-              <Menues
-                value="Education"
-                menuData={InputSelect2}
-                onChange={onChange}
-                name="education"
-              />
-              <Menues
-                value="Experiance"
-                menuData={InputSelect}
-                onChange={onChange}
-                name="experiance"
-              />
-              <div className="modal-btn">
-                <SimpleButton value="Update" color="success" onClick={update} />
-                <SimpleButton value="Cancel" color="error" onClick={cancel} />
-              </div>
-            </>
+          {data ? (
+            <div>
+              <SimpleButton onClick={Cancel} value="X" color="error" />
+              {data?.map((item) => {
+                return (
+                  <div>
+                    <div>
+                      <span>
+                        <b>Company Name:</b>{" "}
+                      </span>
+                      <span>{item.companyName}</span>
+                    </div>
+                    <div>
+                      <span>
+                        <b>Job Category:</b>{" "}
+                      </span>
+                      <span>{item.jobCategory}</span>
+                    </div>
+                    <div>
+                      <span>
+                        <b>Required Education:</b>{" "}
+                      </span>
+                      <span>{item.education}</span>
+                    </div>
+                    <div>
+                      <span>
+                        <b>Required Experiance:</b>{" "}
+                      </span>
+                      <span>{item.experiance}</span>
+                    </div>
+                    <div>
+                      <span>
+                        <b>Address:</b>{" "}
+                      </span>
+                      <span>{item.address}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           ) : (
             <>
-               <DesTable user={user} /> 
+              <DesTable user={user} />
               <SimpleButton onClick={Cancel} value="Cancel" color="error" />
             </>
           )}

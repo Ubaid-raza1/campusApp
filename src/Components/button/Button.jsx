@@ -12,6 +12,7 @@ const SimpleButton = ({
   Variant,
   style,
   startIcon,
+  size
 }) => {
   return (
     <>
@@ -25,6 +26,7 @@ const SimpleButton = ({
         color={color}
         endIcon={endIcon}
         startIcon={startIcon}
+        size={size}
       >
         {value}
       </Button>

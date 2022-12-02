@@ -8,6 +8,7 @@
 
 .card-img>img {
     width: 100%;
+    filter: grayscale(100%)
 }
 .card-title{
     font-size: 24px;

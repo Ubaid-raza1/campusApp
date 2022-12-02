@@ -8,6 +8,7 @@ import MuiTable from "../../Components/muitable/MuiTable";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import DesTable from "../../Components/desTable/DesTable";
+import Swal from "sweetalert2";
 
 const className = {
   table_main: "table-main",
@@ -45,16 +46,45 @@ const Admin = () => {
   };
   const Cancel = () => setOpen(false);
 
-  const Accept = async (id) => {
-    await update(ref(database, "Accounts/" + id), {
-      approved: true,
+  const Accept = (id) => {
+    Swal.fire({
+      title: "Are you sure you want to Accept this User Request?",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+      confirmButtonColor: "#1565c0",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Accepted!",
+          await update(ref(database, "Accounts/" + id), {
+            approved: true,
+          }),
+          "success"
+        );
+      }
     });
   };
-  const Reject = async (id) => {
-    console.log(id);
-    await update(ref(database, "Accounts/" + id), {
-      reject: true,
+  const Reject = (id) => {
+    Swal.fire({
+      title: "Are you sure you want to Reject this User Request?",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+      confirmButtonColor: "red",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Rejected",
+          await update(ref(database, "Accounts/" + id), {
+            reject: true,
+          }),
+          "error"
+        );
+      }
     });
+
+    console.log(id);
   };
 
   return (
@@ -71,9 +101,9 @@ const Admin = () => {
         />
       )}
       {updateArr?.length === 0 ? (
-       <div className="adminNotData">
-       <h3>Accounts Not Available?</h3>
-     </div>
+        <div className="adminNotData">
+          <h3>Accounts Not Available?</h3>
+        </div>
       ) : (
         <MuiTable
           data={updateArr}

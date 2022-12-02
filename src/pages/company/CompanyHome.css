@@ -3,7 +3,7 @@
     height: 80vh;
     align-items: center;
     justify-content: center;
-
+/* text-align: center; */
 }
 
 .CompanyForm {
@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
 }
 
 .company-input {
@@ -28,11 +29,14 @@
 
 #approved {
     display: flex;
-    height: 100vh;
+    height: 80vh;
     justify-content: center;
     align-items: center;
 }
-
+.postJob-btn{
+    display: flex;
+    justify-content: center;
+}
 .postHead {
     color: blue;
 }

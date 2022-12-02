@@ -4,13 +4,13 @@ import Navbar from "../Components/navbar/Navbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-import CompanyHome from "../pages/companyHome/CompanyHome";
-import CompanyJobPost from "../pages/companyHome/CompanyJobPost";
-import CompanyPostedJob from "../pages/companyHome/CompanyPostedJob";
+import CompanyHome from "../pages/company/CompanyHome";
+import CompanyJobPost from "../pages/company/CompanyJobPost";
+import CompanyPostedJob from "../pages/company/CompanyPostedJob";
 import Profile from "../pages/profile/Profile";
 
-import StudentHome from "../pages/studentHome/StudentHome";
-import StudentAppledJobs from "../pages/studentHome/StudentAppledJobs";
+import StudentHome from "../pages/student/StudentHome";
+import StudentAppledJobs from "../pages/student/StudentAppledJobs";
 
 import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
@@ -18,7 +18,6 @@ import Signup from "../pages/signup/Signup";
 import Admin from "../pages/admin/Admin";
 import BlockSection from "../pages/admin/BlockSection";
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
 
 const Router = () => {
   const state = useSelector((state) => state);
@@ -35,7 +34,7 @@ const Router = () => {
             justifyContent: "center",
           }}
         >
-          <CircularProgress  style={{color:"black"}}/>
+          <CircularProgress style={{ color: "black" }} />
         </Box>
       </>
     );
@@ -45,13 +44,11 @@ const Router = () => {
         <React.Fragment>
           <Navbar Role={user} />
           {user?.role === "Admin" ? (
-          
-              <Routes>
-                <Route path="/" element={<Admin />} />
-                <Route path="/blockSection" element={<BlockSection />} />
-                <Route path="/profile" element={<Profile />} />
-              </Routes>
-          
+            <Routes>
+              <Route path="/" element={<Admin />} />
+              <Route path="/blockSection" element={<BlockSection />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
           ) : user?.role === "Company" ? (
             <Routes>
               <Route path="/" element={<CompanyHome />} />

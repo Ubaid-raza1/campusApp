@@ -1,9 +1,11 @@
-.ul-main{
-display: flex;
-justify-content: space-around;
+.ul-main {
+    display: flex;
+    justify-content: space-around;
 
 }
-.adminNotData{
-    text-align: center;
+
+.adminNotData {
+    text-align: start;
+    padding-left: 35px;
     margin: 20px 0px;
 }
