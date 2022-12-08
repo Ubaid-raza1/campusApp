@@ -14,7 +14,7 @@ import StudentAppledJobs from "../pages/student/StudentAppledJobs";
 
 import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
-// import NotFound from "../pages/notFound/NotFound";
+import NotFound from "../pages/notFound/NotFound";
 import Admin from "../pages/admin/Admin";
 import BlockSection from "../pages/admin/BlockSection";
 import { useSelector } from "react-redux";
@@ -40,7 +40,7 @@ const Router = () => {
     );
   return (
     <React.Fragment>
-      {state.uid ? (
+      {state?.uid ? (
         <React.Fragment>
           <Navbar Role={user} />
           {user?.role === "Admin" ? (
@@ -48,6 +48,7 @@ const Router = () => {
               <Route path="/" element={<Admin />} />
               <Route path="/blockSection" element={<BlockSection />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           ) : user?.role === "Company" ? (
             <Routes>
@@ -55,6 +56,7 @@ const Router = () => {
               <Route path="/CompanyJobPost" element={<CompanyJobPost />} />
               <Route path="/CompanyPostedJob" element={<CompanyPostedJob />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           ) : (
             <Routes>
@@ -64,15 +66,15 @@ const Router = () => {
                 element={<StudentAppledJobs />}
               />
               <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           )}
         </React.Fragment>
       ) : (
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="*" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       )}
     </React.Fragment>

@@ -1,9 +1,24 @@
-.profile-main {
-    display: flex;
-    height: 80vh;
-    justify-content: center;
-    align-items: center;
+.profilePage {
+    margin: 24px;
+}
 
+.ubaid {
+    display: flex;
+    height: 60vh;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.profile-main {
+    margin-right: 20px;
+}
+
+
+.mainProfileData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #avatar {
@@ -11,30 +26,42 @@
     height: 200px;
     background-size: cover;
     object-fit: cover;
-    
 }
 
 .avatar-img {
     position: relative;
-    display: flex;
-    justify-content: center;
 }
 
 .profile-data {
-    text-align: center;
     padding: 10px 0px;
 }
 
+.profileHead {
+    margin: 8px 0px;
+    padding: 8px 0px;
+    font-size: 24px;
+    text-align: center;
+}
 
+.profileData {
+    display: flex;
+    align-items: center;
+    padding: 8px 0px;
+}
+
+.profileIcon {
+    display: flex;
+    align-items: center;
+}
 
 .icon-avatar {
     position: absolute;
-    bottom: 1px;
+    bottom: 0;
     width: 200px;
     display: flex;
     justify-content: center;
     background-color: black;
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .profile-btn {
@@ -44,4 +71,32 @@
 
 .avatar-img>input {
     display: none;
+}
+
+.profileIcon {
+    padding-right: 10px;
+}
+
+.profileIconText {
+    padding-right: 5px;
+}
+
+.profileText {
+    font-size: 20px;
+}
+.profileHeader{
+    display: none;
+}
+@media only screen and (max-width: 600px){
+	.ubaid{
+        flex-direction: column;
+    }
+    .profileHead{
+        display: none;
+    }
+    .profileHeader{
+        display: block;
+        font-size: 24px;
+        padding: 8px 0px;
+    }
 }

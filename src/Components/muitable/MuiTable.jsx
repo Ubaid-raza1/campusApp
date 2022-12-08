@@ -58,9 +58,9 @@ const MuiTable = ({
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              {MuiTableHelper(data)?.map((item) => {
+              {MuiTableHelper(CheckIcon, Icon, block)?.map((item, i) => {
                 return (
-                  <StyledTableCell style={{ textAlign: "center" }}>
+                  <StyledTableCell className="tableCel" key={i}>
                     {item}
                   </StyledTableCell>
                 );
@@ -69,49 +69,61 @@ const MuiTable = ({
           </TableHead>
           <TableBody>
             {data?.map((item, i) => (
-              <StyledTableRow>
+              <StyledTableRow key={i}>
                 {state?.role === "Admin" ? (
                   <>
-                    {item?.role === "Student" || item?.role === "Company" ? (
-                      <>
-                        <StyledTableCell style={{ textAlign: "center" }}>
-                          {item?.role}
-                        </StyledTableCell>
-                        <StyledTableCell style={{ textAlign: "center" }}>
-                          {item?.name}
-                        </StyledTableCell>
-                        <StyledTableCell style={{ textAlign: "center" }}>
-                          {item?.email}
-                        </StyledTableCell>
-                      </>
-                    ) : (
-                      item?.role === "jobPost" && (
-                        <>
-                          <StyledTableCell style={{ textAlign: "center" }}>
-                            {item?.companyName}
-                          </StyledTableCell>
-                          <StyledTableCell style={{ textAlign: "center" }}>
-                            {item?.jobCategory}
-                          </StyledTableCell>
-                          <StyledTableCell style={{ textAlign: "center" }}>
-                            {item?.experiance}
-                          </StyledTableCell>
-                        </>
-                      )
-                    )}
+                    {item?.role === "Student" || item?.role === "Company"
+                      ?  block &&  (
+                          <>
+                            <StyledTableCell className="tableCel">
+                              {item?.role}
+                            </StyledTableCell>
+                            <StyledTableCell className="tableCel">
+                              {item?.name}
+                            </StyledTableCell>
+                            <StyledTableCell className="tableCel">
+                              {item?.email}
+                            </StyledTableCell>
+                          </>
+                        ) || Icon &&  (
+                          <>
+                            <StyledTableCell className="tableCel">
+                              {item?.role}
+                            </StyledTableCell>
+                            <StyledTableCell className="tableCel">
+                              {item?.name}
+                            </StyledTableCell>
+                            <StyledTableCell className="tableCel">
+                              {item?.email}
+                            </StyledTableCell>
+                          </>
+                        ) 
+                      : CheckIcon && (
+                          <>
+                            <StyledTableCell className="tableCel">
+                              {item?.companyName}
+                            </StyledTableCell>
+                            <StyledTableCell className="tableCel">
+                              {item?.jobCategory}
+                            </StyledTableCell>
+                            <StyledTableCell className="tableCel">
+                              {item?.experiance}
+                            </StyledTableCell>
+                          </>
+                        )}
                   </>
                 ) : (
                   <>
-                    <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledTableCell className="tableCel">
                       {item?.companyName}
                     </StyledTableCell>
-                    <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledTableCell className="tableCel">
                       {item?.education}
                     </StyledTableCell>
-                    <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledTableCell className="tableCel">
                       {item?.jobCategory}
                     </StyledTableCell>
-                    <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledTableCell className="tableCel">
                       {item?.experiance}
                     </StyledTableCell>
                   </>
@@ -119,23 +131,25 @@ const MuiTable = ({
 
                 {state?.role === "Company" ? (
                   AppsSharpIcon ? (
-                    <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledTableCell className="tableCel">
                       <IconButton onClick={() => Check(item?.studentId, i + 1)}>
-                        <AppsSharpIcon color="primary"/>
+                        <AppsSharpIcon color="primary" />
                       </IconButton>
                     </StyledTableCell>
                   ) : (
-                    <StyledTableCell style={{ textAlign: "center" }}> 
+                    <StyledTableCell className="tableCel">
                       <IconButton onClick={() => Delete(item?.id)}>
-                        <DeleteIcon color="error"/>
+                        <DeleteIcon color="error" />
                       </IconButton>
                     </StyledTableCell>
                   )
                 ) : state?.role === "Student" ? (
-                  <StyledTableCell style={{ textAlign: "center" }}>Applied</StyledTableCell>
+                  <StyledTableCell className="tableCel">
+                    Applied
+                  </StyledTableCell>
                 ) : state?.role === "Admin" ? (
                   item?.role === "Student" || item?.role === "Company" ? (
-                    <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledTableCell className="tableCel">
                       {Icon ? (
                         <div
                           className="approved-btn"
@@ -149,7 +163,7 @@ const MuiTable = ({
                               value="confirm"
                               Variant="contained"
                               startIcon={<Icon />}
-                              onClick={()=>Accept(item?.uid)}
+                              onClick={() => Accept(item?.uid)}
                             />
                           </div>
                           <div>
@@ -158,7 +172,7 @@ const MuiTable = ({
                               Variant="outlined"
                               color="error"
                               startIcon={<Icon2 />}
-                              onClick={()=>Reject(item?.uid)}
+                              onClick={() => Reject(item?.uid)}
                             />
                           </div>
                         </div>
@@ -178,8 +192,8 @@ const MuiTable = ({
                       )}
                     </StyledTableCell>
                   ) : (
-                    item?.role === "jobPost" && (
-                      <StyledTableCell style={{ textAlign: "center" }}>
+                    CheckIcon && (
+                      <StyledTableCell className="tableCel">
                         <SimpleButton
                           value="Check"
                           Variant="outlined"

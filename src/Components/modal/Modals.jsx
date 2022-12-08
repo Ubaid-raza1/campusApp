@@ -1,74 +1,114 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import "./Modals.css";
 
-const style = {
-  display: "flex",
-  flexDirection: "column",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
-
-const Modals = ({ open, SimpleButton, Cancel, DesTable, user, data }) => {
+const Modals = ({
+  open,
+  SimpleButton,
+  Cancel,
+  DesTable,
+  user,
+  data,
+  className,
+  CloseIcon,
+  PersonIcon,
+  WorkIcon,
+  LocationOnIcon,
+  ExplicitIcon,
+  SchoolIcon,
+}) => {
   return (
     <>
       <Modal
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={{ minHeight: "500px" }}
       >
-        <Box sx={style}>
+        <Box className={className?.modalMain}>
           {data ? (
             <div>
-              <SimpleButton onClick={Cancel} value="X" color="error" />
+              <div className="closeBtn">
+                <div className="modalheader">Job Detail</div>
+                <div>
+                  <CloseIcon onClick={Cancel} />
+                </div>
+              </div>
               {data?.map((item) => {
                 return (
-                  <div>
-                    <div>
-                      <span>
-                        <b>Company Name:</b>{" "}
+                  <div className="jobDetail">
+                    <div className="underText">
+                      <span className="underIcon">
+                        <PersonIcon />
                       </span>
-                      <span>{item.companyName}</span>
+                      <div className="underTowText">
+                        <div className="underIcon">
+                          <b>Company Name:</b>
+                        </div>
+                        <div>{item.companyName}</div>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        <b>Job Category:</b>{" "}
+
+                    <div className="underText">
+                      <span className="underIcon">
+                        <WorkIcon />
                       </span>
-                      <span>{item.jobCategory}</span>
+                      <div className="underTowText">
+                        <div className="underIcon">
+                          <b>Job Category:</b>
+                        </div>
+                        <div>{item.jobCategory}</div>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        <b>Required Education:</b>{" "}
+                    <div className="underText">
+                      <span className="underIcon">
+                        <SchoolIcon />
                       </span>
-                      <span>{item.education}</span>
+                      <div className="underTowText">
+                        <div className="underIcon">
+                          <b>Required Education:</b>
+                        </div>
+                        <div>{item.education}</div>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        <b>Required Experiance:</b>{" "}
+                    <div className="underText">
+                      <span className="underIcon">
+                        <ExplicitIcon />
                       </span>
-                      <span>{item.experiance}</span>
+                      <div className="underTowText">
+                        <div className="underIcon">
+                          <b>Required Experiance:</b>
+                        </div>
+                        <div>{item.experiance}</div>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        <b>Address:</b>{" "}
+                    <div className="underText">
+                      <span className="underIcon">
+                        <LocationOnIcon />
                       </span>
-                      <span>{item.address}</span>
+                      <div className="underTowText">
+                        <div className="underIcon">
+                          <b>Address:</b>
+                        </div>
+                        <div>{item.address}</div>
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
           ) : (
-            <>
+            <div>
+              <div className="modalTableHeader">
+                <div className="tableText">Student Applied Check</div>
+                <div>
+                  <CloseIcon onClick={Cancel} />
+                </div>
+              </div>
+
               <DesTable user={user} />
-              <SimpleButton onClick={Cancel} value="Cancel" color="error" />
-            </>
+            </div>
           )}
         </Box>
       </Modal>

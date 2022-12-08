@@ -11,25 +11,25 @@ import LoadingButtons from "../../Components/loadingButton/LoadingButtons";
 const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const signupHanlder = (data) => {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
-        setLoading(true);
+
         const userSig = userCredential.user;
+        if (userSig.uid) setLoading(true);
         navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         Swal.fire("Sorry!", errorCode, "warning");
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+        setLoading(false);
+        
       });
+      setLoading(true)
   };
 
   const formik = useFormik({
@@ -101,7 +101,6 @@ const Login = () => {
                 !formik.values.email.trim() || !formik.values.password.trim()
               }
             />
-           
           </div>
           <div>
             Do You Want To Create Account?

@@ -20,7 +20,7 @@ const CompanyPostedJob = () => {
   const companyPostedJob = Object.values(state?.companyJobPost);
 
   const postJob = companyPostedJob.filter((ele) => {
-    return ele.companyId === state.uid;
+    return ele?.companyId === state?.uid;
   });
 
   const Delete = (delId) => {
@@ -42,7 +42,7 @@ const CompanyPostedJob = () => {
 
   return (
     <div>
-      {!!state.user.block && !!state.user.approved ? (
+      {!!state?.user?.block && !!state?.user?.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
             <span style={{ fontSize: "30px" }}>Company data</span>{" "}
@@ -51,7 +51,7 @@ const CompanyPostedJob = () => {
         ) : (
           <MuiTable data={postJob} Delete={Delete} DeleteIcon={DeleteIcon} />
         )
-      ) : !!state?.user.block ? (
+      ) : !!state?.user?.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">You are Block Please Contact Admin!</h1>

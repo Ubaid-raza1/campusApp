@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -17,6 +16,7 @@ import navbarHelper from "./NavbarHelper";
 import { useDispatch } from "react-redux";
 import SimpleButton from "../button/Button";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const settings = ["Profile", "Logout"];
 
@@ -63,53 +63,62 @@ const Navbar = ({ Role }) => {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {Role.role}
+              {!!Role?.approved && !!Role?.block
+                ? Role?.role
+                : !!Role?.block
+                ? ""
+                : ""}
             </Link>
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="black"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {navbarHelper(Role)?.map((data) => (
-                <MenuItem key={data} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link
-                      to={data.link}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      {data.url}
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {!!Role.approved && !!Role.block ? (
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="black"
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {navbarHelper(Role)?.map((data) => (
+                  <MenuItem key={data} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        to={data?.link}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        {data?.url}
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : !!Role.block ? (
+            ""
+          ) : (
+            ""
+          )}
           <Typography
             variant="h5"
             noWrap
@@ -126,7 +135,11 @@ const Navbar = ({ Role }) => {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {Role.role}
+              {!!Role?.approved && !!Role?.block
+                ? Role?.role
+                : !!Role?.block
+                ? ""
+                : ""}
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -142,9 +155,13 @@ const Navbar = ({ Role }) => {
               >
                 <Link
                   style={{ textDecoration: "none", color: "black" }}
-                  to={data.link}
+                  to={data?.link}
                 >
-                  {data.url}
+                  {!!Role?.approved && !!Role?.block
+                    ? data?.url
+                    : !!Role?.block
+                    ? ""
+                    : ""}
                 </Link>
               </Button>
             ))}
@@ -155,7 +172,7 @@ const Navbar = ({ Role }) => {
               endIcon={<ExitToAppIcon />}
               style={{ color: "black", border: "1px solid black" }}
               Variant="outlined"
-              onClick={() => SignOut(settings[1], dispatch)}
+              onClick={() => SignOut(settings[1], dispatch, navigate)}
               size="small"
             />
           ) : (
@@ -163,7 +180,7 @@ const Navbar = ({ Role }) => {
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt="Remy Sharp"
+                    alt={Role?.name}
                     src={`${
                       Role?.fileUrl
                         ? Role?.fileUrl

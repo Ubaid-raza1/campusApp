@@ -6,10 +6,11 @@ import SimpleButton from "../../Components/button/Button";
 import MuiTable from "../../Components/muitable/MuiTable";
 import DesTable from "../../Components/desTable/DesTable";
 import notAvailable from "../../image/notAvailable.jpg";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const className = {
-  table_main: "table-main",
-  table: "table",
+  modalMain: "CompanyModal",
 };
 
 const CompanyHome = () => {
@@ -21,16 +22,16 @@ const CompanyHome = () => {
   const companyApplied = Object.values(state?.companyJobPost);
 
   const postJob = companyApplied.filter((ele) => {
-    return ele.companyId === state.uid && ele.studentId;
+    return ele?.companyId === state?.uid && ele?.studentId;
   });
 
-  const array = Object.entries(state.accounts)
-    .map((ele) => ele.splice(1, 2))
+  const array = Object.entries(state?.accounts)
+    .map((ele) => ele?.splice(1, 2))
     .flatMap((ele) => ele);
 
   const Check = (arr) => {
     setOpen(true);
-    const check = array.filter((ele, i) => arr.includes(ele.uid));
+    const check = array?.filter((ele, i) => arr?.includes(ele?.uid));
     setUser(check);
   };
 
@@ -38,7 +39,7 @@ const CompanyHome = () => {
 
   return (
     <div>
-      {!!state.user.block && !!state.user.approved ? (
+      {!!state?.user?.block && !!state?.user?.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
             <span style={{fontSize:"30px"}}>Company data</span> <img src={notAvailable} alt="" />
@@ -50,7 +51,7 @@ const CompanyHome = () => {
             Check={Check}
           />
         )
-      ) : !!state?.user.block ? (
+      ) : !!state?.user?.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">You are Block Please Contact Admin!</h1>
@@ -61,6 +62,8 @@ const CompanyHome = () => {
         user={user}
         DesTable={DesTable}
         SimpleButton={SimpleButton}
+        className={className}
+        CloseIcon={CloseIcon}
       />
     </div>
   );

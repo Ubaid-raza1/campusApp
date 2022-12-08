@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import SimpleButton from "../../Components/button/Button";
 import { database } from "../../firebase/Firebase";
 import { update, ref } from "firebase/database";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 import "./Admin.css";
 import MuiTable from "../../Components/muitable/MuiTable";
@@ -20,10 +21,9 @@ const BlockSection = () => {
 
   const blockData = Object.values(state.accounts);
 
-  const student = blockData.filter((ele) => ele.role === "Student");
-  const company = blockData.filter((ele) => ele.role === "Company");
+  const student = blockData?.filter((ele) => ele?.role === "Student");
+  const company = blockData?.filter((ele) => ele?.role === "Company");
 
- 
   const block = async (id) => {
     await update(ref(database, "Accounts/" + id), {
       block: false,
@@ -33,7 +33,6 @@ const BlockSection = () => {
     await update(ref(database, "Accounts/" + id), {
       block: true,
     });
-    
   };
   return (
     <>
@@ -46,7 +45,7 @@ const BlockSection = () => {
           data={student}
           block={block}
           unBlock={unBlock}
-          SimpleButton={SimpleButton}
+          SimpleButton={SimpleButton}   
         />
       )}
       {company?.length === 0 ? (

@@ -1,0 +1,19 @@
+.notFound {
+    display: flex;
+    height: 80vh;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 400px;
+
+}
+
+.notFoundHead {
+    font-size: 64px;
+    color: silver;
+}
+
+.notFoundText {
+    font-size: 24px;
+    color: silver;
+}

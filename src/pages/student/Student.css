@@ -1,3 +1,4 @@
+
 .card {
     display: flex;
     flex-wrap: wrap;
@@ -10,8 +11,9 @@
 .noJobSection {
     display: flex;
     height: 80vh;
-    justify-content: center;
+    min-height: 510px;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -30,9 +32,28 @@
     height: 80vh;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
+    min-height: 500px;
+    flex-direction: column;
 }
 
 .notAvailable>img {
     width: 30%;
+}
+
+/* 647 */
+@media only screen and (max-width: 647px) {
+    .card {
+        display: block;
+
+    }
+
+    .Cards {
+        margin: 20px !important;
+
+    }
+
+    #card-but {
+        margin: 4px 0px;
+    }
 }

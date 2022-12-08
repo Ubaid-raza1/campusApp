@@ -2,15 +2,16 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth, signOut } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { UID, USER, COMPANYJOBPOSTED, ACCOUNTS } from "../reducer/Action";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBS3GPoxX29VCaLgPMKdM2fjgv51epVlLg",
-  authDomain: "campus-app-1c4b8.firebaseapp.com",
-  projectId: "campus-app-1c4b8",
-  storageBucket: "campus-app-1c4b8.appspot.com",
-  messagingSenderId: "724917581976",
-  appId: "1:724917581976:web:e6a18613d89e3ab03738ed",
-  measurementId: "G-7ME6FLS1TL",
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -25,10 +26,11 @@ export const SignOut = async (cheack, dis, nav) => {
     ? await signOut(auth)
         .then((res) => {
           console.log(res);
-          dis({ type: "uid", payload: false });
-          dis({ type: "user", payload: false });
-          dis({ type: "accounts", payload: false });
-          dis({ type: "companyData", payload: false });
+          dis({ type: UID, payload: false });
+          dis({ type: USER, payload: false });
+          dis({ type: ACCOUNTS, payload: false });
+          dis({ type: COMPANYJOBPOSTED, payload: false });
+          nav("/")
         })
         .catch((err) => console.log(err))
     : nav("/profile");

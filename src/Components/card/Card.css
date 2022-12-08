@@ -1,28 +1,34 @@
-.Cards { 
+/* @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Anek+Latin:wght@100;300&family=IBM+Plex+Mono:wght@200&family=Inconsolata:wght@200;300;400&family=Montserrat:wght@300&family=PT+Serif:ital@0;1&family=Poppins:wght@200;300;400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100&family=Roboto:ital,wght@0,300;1,100&family=Source+Sans+Pro:wght@200;600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Alexandria:wght@400;900&family=Anek+Latin:wght@100;300&family=IBM+Plex+Mono:wght@200&family=Inconsolata:wght@200;300;400&family=La+Belle+Aurore&family=Montserrat:wght@300&family=PT+Serif:ital@0;1&family=Poppins:wght@200;300;400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100&family=Roboto:ital,wght@0,300;1,100&family=Source+Sans+Pro:wght@600&display=swap');
+.Cards {
     word-break: break-all;
-    border: 1px  #ccc;
+    border: 1px #ccc;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px;
     margin: 8px;
+    font-family: 'Anek Latin', sans-serif;
+
 }
 
 .card-img>img {
     width: 100%;
     filter: grayscale(100%)
 }
-.card-title{
+
+.card-title {
     font-size: 24px;
     padding: 5px;
 }
-.card-discription{
+
+.card-discription {
     font-size: 20px;
     padding: 4px
-    
 }
 
-.card-btn{
+.card-btn {
     margin: 5px;
 }
-#card-but{
+
+#card-but {
     width: 100%;
 }

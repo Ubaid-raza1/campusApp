@@ -21,7 +21,7 @@ const InputSelect = [
 const Signup = () => {
   const [disabled, setDisabled] = useState(true);
   const [value, setValue] = useState();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -29,33 +29,32 @@ const Signup = () => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then(async (userCredential) => {
         //     // Signed in
-        const uid = userCredential.user.uid;
-        setLoading(true);
-        await set(ref(database, `Accounts/` + uid), {
-          name: data.name,
-          email: data.email,
-          role: value,
-          approved: false,
-          reject: false,
-          block: true,
-          uid: uid,
-          experiance: value === "Company" ? "" : data.experiance,
-        });
-
+        const user = userCredential.user;
+        const uid = user?.uid;
+        // if (user)
         if (uid) {
+          setLoading(true);
           navigate("/");
+          await set(ref(database, `Accounts/` + uid), {
+            name: data.name,
+            email: data.email,
+            role: value,
+            approved: false,
+            reject: false,
+            block: true,
+            uid: uid,
+            experiance: value === "Company" ? "" : data.experiance,
+          });
         }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         Swal.fire("Sorry!", errorCode, "warning");
-        setLoading(true)
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+        setLoading(false);
         //   // ..
       });
+    setLoading(true);
   };
 
   const formik = useFormik({
@@ -171,7 +170,8 @@ const Signup = () => {
             </div>
           )}
           <div className="form-btn">
-            <LoadingButtons 
+            <LoadingButtons
+              loading={loading}
               value="Signup"
               type="submit"
               disabled={
@@ -184,7 +184,6 @@ const Signup = () => {
               id={"btn-form"}
               variant="contained"
             />
-         
           </div>
           <div>
             SignIn?

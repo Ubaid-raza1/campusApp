@@ -1,9 +1,10 @@
 .postForm {
     display: flex;
     height: 80vh;
+    min-height: 500px;
     align-items: center;
     justify-content: center;
-/* text-align: center; */
+
 }
 
 .CompanyForm {

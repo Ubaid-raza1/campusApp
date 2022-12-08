@@ -27,25 +27,22 @@ const CompanyJobPost = () => {
   let id = date.getTime().toString();
   const state = useSelector((state) => state);
 
-  const jobPostHandler = (data) => {
+  const jobPostHandler = (data, { resetForm }) => {
     const postListRef = ref(database, "/CompanyPostJob/" + id);
     set(postListRef, {
-      jobCategory: data.jobCategory,
-      experiance: data.experiance,
-      education: data.education,
-      companyId: state.uid,
+      jobCategory: data?.jobCategory,
+      experiance: data?.experiance,
+      education: data?.education,
+      companyId: state?.uid,
       id: id,
       studentId: false,
-      companyName: state.user.name,
+      companyName: state?.user.name,
       role: "jobPost",
-      address: data.location,
-    }).then((res)=>{
-      Swal.fire(
-        'Good job!',
-        'You are job is posted!',
-        'success'
-      )
-    })
+      address: data?.location,
+    }).then((res) => {
+      Swal.fire("Good job!", "You are job is posted!", "success");
+    });
+    resetForm();
   };
 
   const formik = useFormik({
@@ -58,9 +55,11 @@ const CompanyJobPost = () => {
 
     validationSchema: Yup.object({
       jobCategory: Yup.string()
-        .max(40, "job Category in Must be 40 characters or less")
+        .min(5, "Job title  Must be 5 characters or greather")
+        .max(40, "Job title in Must be 40 characters or less")
         .required("Required"),
       location: Yup.string()
+        .min(10, "Address  Must be 10 characters or greather")
         .max(100, "Address in Must be 100 characters or less")
         .required("Required"),
     }),
@@ -69,16 +68,16 @@ const CompanyJobPost = () => {
   });
   return (
     <div className="company">
-      {!!state.user.block && !!state.user.approved ? (
+      {!!state?.user?.block && !!state?.user?.approved ? (
         <div className="postForm">
           <form className="CompanyForm" onSubmit={formik.handleSubmit}>
-            <h1 className="postHead">Post Jobs!</h1>
+            <h1 className="postHead">Jobs Post </h1>
             <InputTextFields
               Lable="Job Title"
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.jobCategory}
+              value={formik?.values?.jobCategory && ""}
               name="jobCategory"
               size="small"
             />
@@ -90,7 +89,7 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.location}
+              value={formik?.values?.location && ""}
               multiline
               rows={4}
               name="location"
@@ -104,7 +103,7 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.education}
+              value={formik?.values?.education && ""}
               name="education"
               // value="Education"
               Lable="Education"
@@ -114,9 +113,8 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.education}
+              value={formik?.values?.education && ""}
               name="experiance"
-              // value="Experiance"
               Lable="Experiance"
             />
             <div className="postJob-btn">
@@ -135,7 +133,7 @@ const CompanyJobPost = () => {
             </div>
           </form>
         </div>
-      ) : !!state?.user.block ? (
+      ) : !!state?.user?.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (
         <h1 id="approved">You are Block Please Contact Admin!</h1>

@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Alexandria:wght@400;900&family=Anek+Latin:wght@100;300&family=IBM+Plex+Mono:wght@200&family=Inconsolata:wght@200;300;400&family=La+Belle+Aurore&family=Montserrat:wght@300&family=PT+Serif:ital@0;1&family=Poppins:wght@200;300;400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100&family=Roboto:ital,wght@0,300;1,100&family=Source+Sans+Pro:wght@600&display=swap');
+
+.mainModal {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    box-shadow: 24;
+    background-color: white;
+}
+.CompanyModal{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    box-shadow: 24;
+    background-color: white;
+}
+
+.closeBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+    background-color: #1b5e20;
+    color: white;
+    font-size: 24px;
+    text-transform: uppercase;
+
+}
+
+.jobDetail {
+    padding: 8px;
+}
+
+.underText {
+    display: flex;
+    align-items: center;
+    margin: 8px 0px;
+}
+
+.underTowText {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    word-break: break-all;
+}
+
+.underIcon {
+    padding-right: 5px;
+}
+
+.modalheader {
+    padding-left: 15px;
+}
+
+.modalTableHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+    background-color: #000;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+
+}
+.tableText{
+    font-size: 24px;
+    font-family: 'Raleway', sans-serif;
+
+}
+
+@media only screen and (max-width: 360px) {
+    .mainModal {
+        width: 90%;
+
+        /* margin: 0px 18px; */
+    }
+}
+@media only screen and (max-width: 600px) {
+    .CompanyModal {
+        width: 90%;
+
+        /* margin: 0px 18px; */
+    }
+}

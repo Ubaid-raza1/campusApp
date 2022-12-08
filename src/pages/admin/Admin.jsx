@@ -9,18 +9,14 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import DesTable from "../../Components/desTable/DesTable";
 import Swal from "sweetalert2";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const className = {
-  table_main: "table-main",
-  table: "table",
-  table_th: "table-th",
-  table_td: "table-td",
+  modalMain: "CompanyModal",
 };
-const table_header = ["id", "Companies Name", "Job Post", "Experiance"];
-const StuCom = ["id", "Cateogeory", "Name", "Email", "Accepted", "Rejected"];
 
 const Admin = () => {
-  // const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [id, setId] = useState();
   const [open, setOpen] = useState(false);
@@ -30,8 +26,8 @@ const Admin = () => {
 
   const cheackData = studentApplyCheak.filter((ele) => {
     return ele?.role === "Student" && id
-      ? id?.includes(ele.uid)
-      : []?.includes(ele.uid);
+      ? id?.includes(ele?.uid)
+      : []?.includes(ele?.uid);
   });
 
   const accounts = Object.values(state?.accounts);
@@ -84,7 +80,6 @@ const Admin = () => {
       }
     });
 
-    console.log(id);
   };
 
   return (
@@ -121,6 +116,8 @@ const Admin = () => {
         user={cheackData}
         DesTable={DesTable}
         SimpleButton={SimpleButton}
+        className={className}
+        CloseIcon={CloseIcon}
       />
     </>
   );

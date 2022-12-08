@@ -1,15 +1,9 @@
 import { useSelector } from "react-redux";
 
-const MuiTableHelper = (data) => {
+const MuiTableHelper = (CheckIcon, Icon, block) => {
   const state = useSelector((state) => state);
   const user = state?.user;
 
-  const arr = data
-    .map((ele) => ele.role)
-    .filter((item, i, arr) => arr.findIndex((ele) => ele === item) === i);
-  const arr2 = data
-    .map((ele) => ele.user)
-    .filter((item, i, arr) => arr.findIndex((ele) => ele === item) === i);
   const companyHeader = [
     "Company Name",
     "Education",
@@ -19,26 +13,22 @@ const MuiTableHelper = (data) => {
   ];
   const student = [
     "Company Name",
-    "Job Category",
     "Education",
+    "Job Category",
     "Experiance",
     " ",
   ];
-  const Admin = [" Name", "Email", ""];
   const AdminHome = ["Companies Name", "Job Post", "Experiance", ""];
-  const Adminfooter = ["Name", "Category", "Email", ""];
-
-  return user.role === "Company"
+  const Adminfooter = ["Category", "Name", "Email", ""];
+  console.log("CheckIcon", CheckIcon);
+  console.log("Icon", Icon);
+  return user?.role === "Company"
     ? companyHeader
-    : user.role === "Student"
+    : user?.role === "Student"
     ? student
-    : user.role === "Admin"
-    ? arr.includes("jobPost")
-      ? AdminHome
-      : arr2.includes("approved")
-      ? Adminfooter
-      : Admin
-    : [];
+    : (user?.role === "Admin" && Icon && Adminfooter) ||
+      (block && Adminfooter) ||
+      (CheckIcon && AdminHome);
 };
 
 export default MuiTableHelper;
