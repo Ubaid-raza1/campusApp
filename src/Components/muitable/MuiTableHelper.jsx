@@ -20,8 +20,7 @@ const MuiTableHelper = (CheckIcon, Icon, block) => {
   ];
   const AdminHome = ["Companies Name", "Job Post", "Experiance", ""];
   const Adminfooter = ["Category", "Name", "Email", ""];
-  console.log("CheckIcon", CheckIcon);
-  console.log("Icon", Icon);
+
   return user?.role === "Company"
     ? companyHeader
     : user?.role === "Student"

@@ -26,8 +26,8 @@ const Reducer = (state = initialState, action) => {
     case COMPANYJOBPOSTED:
       return {
         ...state,
-        companyJobPost: action.payload ? action.payload : [],
         loading: false,
+        companyJobPost: action.payload ? action.payload : [],
       };
     case ACCOUNTS:
       return {

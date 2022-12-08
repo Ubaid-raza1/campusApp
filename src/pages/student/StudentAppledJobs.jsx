@@ -22,27 +22,22 @@ const StudentAppledJobs = () => {
   });
 
   return (
- 
-     
-        <div>
-          {!!state?.user?.block && !!state?.user?.approved ? (
-            applied?.length === 0 ? (
-              
-              <div className="notAvailable">
-                <span style={{ fontSize: "30px" }}>Applied Jobs</span>
-                <img src={notAvailable} alt="" />
-              </div>
-            ) : (
-              <MuiTable data={applied} />
-            )
-          ) : !!state?.user?.block ? (
-            <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
-          ) : (
-            <h1 id="approved">You are Block Please Contact Admin!</h1>
-          )}
-        </div>
-     
-  
+    <div>
+      {!!state?.user?.block && !!state?.user?.approved ? (
+        applied?.length === 0 ? (
+          <div className="notAvailable">
+            <span style={{ fontSize: "30px" }}>Applied Jobs</span>
+            <img src={notAvailable} alt="" />
+          </div>
+        ) : (
+          <MuiTable data={applied} />
+        )
+      ) : !!state?.user?.block ? (
+        <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
+      ) : (
+        <h1 id="approved">You are Block Please Contact Admin!</h1>
+      )}
+    </div>
   );
 };
 

@@ -34,7 +34,6 @@ const StudentHome = () => {
   const myData = postJob?.filter(
     (item) => item?.experiance == state?.user?.experiance
   );
-  console.log(state);
   const apply = (id, data) => {
     const postListRef = ref(database, "CompanyPostJob/" + id);
     Swal.fire({
@@ -61,10 +60,8 @@ const StudentHome = () => {
     setUserData(data);
   };
   const Cancel = () => setOpen(false);
-  console.log("Loader=====>", state.loading);
+
   return (
-    <>
-    {state.loading?<>Loading.....</>:
     <div className="student-main">
       {!!state?.user?.block && !!state?.user?.approved ? (
         <>
@@ -103,8 +100,6 @@ const StudentHome = () => {
         SchoolIcon={SchoolIcon}
       />
     </div>
-    }
-    </>
   );
 };
 
