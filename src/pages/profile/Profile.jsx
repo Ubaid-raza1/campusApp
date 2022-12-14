@@ -16,6 +16,7 @@ import SimpleButton from "../../Components/button/Button";
 import Modals from "../../Components/modal/Modals";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import Menu from "../../Components/menu/Menu";
+import Swal from "sweetalert2";
 
 const Profile = () => {
   const [open, setOpen] = React.useState(false);
@@ -34,7 +35,7 @@ const Profile = () => {
       setImagePreview(e.target.files[0]);
       setUploadImage(URL.createObjectURL(e.target.files[0]));
     } else {
-      alert("Select Pictures!");
+      Swal.fire("Sorry!","Please Select Image", "warning");
     }
   };
 
@@ -90,7 +91,10 @@ const Profile = () => {
     setOpen(false);
   };
   return (
-    <div className="profilePage">
+    <div
+      className="profilePage"
+      style={{ display: !!user?.block && !!user?.approved ? "flex" : "block" }}
+    >
       {!!user?.block && !!user.approved ? (
         <>
           <div className="ubaid">
