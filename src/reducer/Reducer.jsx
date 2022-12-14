@@ -6,7 +6,7 @@ let initialState = {
   accounts: [],
   uid: false,
   loading: true,
-  // homeLoading: true,
+  
 };
 
 const Reducer = (state = initialState, action) => {

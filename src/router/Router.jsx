@@ -1,22 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../Components/navbar/Navbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import {
+  adminRoutes,
+  companyRoutes,
+  studentRoutes,
+  LoginSignup,
+} from "./RoutesHalper";
 
-import CompanyHome from "../pages/company/CompanyHome";
-import CompanyJobPost from "../pages/company/CompanyJobPost";
-import CompanyPostedJob from "../pages/company/CompanyPostedJob";
-import Profile from "../pages/profile/Profile";
-
-import StudentHome from "../pages/student/StudentHome";
-import StudentAppledJobs from "../pages/student/StudentAppledJobs";
-
-import Login from "../pages/login/Login";
-import Signup from "../pages/signup/Signup";
-import NotFound from "../pages/notFound/NotFound";
-import Admin from "../pages/admin/Admin";
-import BlockSection from "../pages/admin/BlockSection";
 import { useSelector } from "react-redux";
 
 const Router = () => {
@@ -38,43 +31,30 @@ const Router = () => {
         </Box>
       </>
     );
+
+  const routesList = {
+    admin: adminRoutes,
+    company: companyRoutes,
+  };
+  const currentUserRoutes =
+    routesList?.[user?.role?.toLowerCase()] || studentRoutes;
+
   return (
     <React.Fragment>
       {state?.uid ? (
         <React.Fragment>
           <Navbar Role={user} />
-          {user?.role === "Admin" ? (
-            <Routes>
-              <Route path="/" element={<Admin />} />
-              <Route path="/blockSection" element={<BlockSection />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          ) : user?.role === "Company" ? (
-            <Routes>
-              <Route path="/" element={<CompanyHome />} />
-              <Route path="/CompanyJobPost" element={<CompanyJobPost />} />
-              <Route path="/CompanyPostedJob" element={<CompanyPostedJob />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          ) : (
-            <Routes>
-              <Route path="/" element={<StudentHome />} />
-              <Route
-                path="/StuedntAppleidJobs"
-                element={<StudentAppledJobs />}
-              />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          )}
+          <Routes>
+            {currentUserRoutes?.map((item) => (
+              <Route path={item?.path} element={<item.component />} />
+            ))}
+          </Routes>
         </React.Fragment>
       ) : (
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="*" element={<Login />} />
+          {LoginSignup?.map((item) => {
+            return <Route path={item?.path} element={<item.component />} />;
+          })}
         </Routes>
       )}
     </React.Fragment>
