@@ -13,22 +13,24 @@ const InputTextFields = ({
   rows,
   onBlur,
   multiline,
- 
+  value,
+  defaultValue
 }) => {
   return (
     <div className="menu-main">
       <TextField
-        name={name}
         onChange={onChange}
         className={className}
         label={Lable}
+        InputProps={{ name, id:name }}
         size={size}
         variant={variant}
+        value={value}
         type={type}
         rows={rows}
         onBlur={onBlur}
         multiline={multiline}
-      
+        defaultValue={defaultValue}
       />
     </div>
   );

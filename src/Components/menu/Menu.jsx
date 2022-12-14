@@ -15,6 +15,7 @@ const Menues = ({
   Lable,
   id,
   className,
+  defaultValue,
 }) => {
   return (
     <div className="menu-main">
@@ -27,11 +28,13 @@ const Menues = ({
           label={Lable}
           disabled={disabled}
           variant={variant}
+          value={Value}
+          defaultValue={defaultValue}
         >
           {menuData?.map((ele, i) => {
             return (
-              <MenuItem value={ele.Value} key={i}>
-                {ele.Value}
+              <MenuItem value={ele?.Value} key={i}>
+                {ele?.Value}
               </MenuItem>
             );
           })}

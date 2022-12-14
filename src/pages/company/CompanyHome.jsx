@@ -42,7 +42,7 @@ const CompanyHome = () => {
       {!!state?.user?.block && !!state?.user?.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
-            <span style={{fontSize:"30px"}}>Company data</span> <img src={notAvailable} alt="" />
+            <span style={{fontSize:"30px"}}>Student Applieds Job</span> <img src={notAvailable} alt="" />
           </div>
         ) : (
           <MuiTable

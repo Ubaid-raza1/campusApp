@@ -45,7 +45,7 @@ const CompanyPostedJob = () => {
       {!!state?.user?.block && !!state?.user?.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
-            <span style={{ fontSize: "30px" }}>Company data</span>{" "}
+            <span style={{ fontSize: "30px" }}>Company Posted Job</span>
             <img src={notAvailable} alt="" />
           </div>
         ) : (

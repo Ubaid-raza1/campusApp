@@ -11,7 +11,8 @@
     box-shadow: 24;
     background-color: white;
 }
-.CompanyModal{
+
+.CompanyModal {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -19,6 +20,18 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
+    box-shadow: 24;
+    background-color: white;
+}
+
+.profileMain {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
     box-shadow: 24;
     background-color: white;
 }
@@ -60,7 +73,7 @@
     padding-left: 15px;
 }
 
-.modalTableHeader{
+.modalTableHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -70,10 +83,48 @@
     font-family: 'Raleway', sans-serif;
 
 }
-.tableText{
+
+.profileEditHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+    background-color: #000;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.tableText {
     font-size: 24px;
     font-family: 'Raleway', sans-serif;
 
+}
+
+.profileEditForm {
+    margin: 10px;
+}
+
+.profile {
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.profileEditText {
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+.profileEditInput {
+    width: 100%;
+}
+
+.profileInput {
+    width: 100%;
+}
+
+.profileMenu {
+    width: 100%;
 }
 
 @media only screen and (max-width: 360px) {
@@ -83,10 +134,19 @@
         /* margin: 0px 18px; */
     }
 }
+
 @media only screen and (max-width: 600px) {
     .CompanyModal {
         width: 90%;
 
-        /* margin: 0px 18px; */
+
+    }
+}
+
+@media only screen and (max-width: 665px) {
+    .profileMain {
+        width: 70%;
+
+
     }
 }

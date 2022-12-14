@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { ref, set } from "firebase/database";
 import Menues from "../../Components/menu/Menu";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
-import { useFormik } from "formik";
+import { useFormik, useField } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 
@@ -27,7 +27,7 @@ const CompanyJobPost = () => {
   let id = date.getTime().toString();
   const state = useSelector((state) => state);
 
-  const jobPostHandler = (data, { resetForm }) => {
+  const jobPostHandler = (data) => {
     const postListRef = ref(database, "/CompanyPostJob/" + id);
     set(postListRef, {
       jobCategory: data?.jobCategory,
@@ -40,9 +40,17 @@ const CompanyJobPost = () => {
       role: "jobPost",
       address: data?.location,
     }).then((res) => {
-      Swal.fire("Good job!", "You are job is posted!", "success");
+      Swal.fire({
+        title: "Are you sure you are Posted This Job",
+        showCancelButton: true,
+        confirmButtonText: "Post",
+        confirmButtonColor: "black",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Job Posted SuccessFully", formik.resetForm(), "success");
+        }
+      });
     });
-    resetForm();
   };
 
   const formik = useFormik({
@@ -53,7 +61,7 @@ const CompanyJobPost = () => {
       experiance: "",
     },
 
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       jobCategory: Yup.string()
         .min(5, "Job title  Must be 5 characters or greather")
         .max(40, "Job title in Must be 40 characters or less")
@@ -66,6 +74,7 @@ const CompanyJobPost = () => {
 
     onSubmit: jobPostHandler,
   });
+
   return (
     <div className="company">
       {!!state?.user?.block && !!state?.user?.approved ? (
@@ -77,7 +86,7 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.jobCategory && ""}
+              value={formik.values.jobCategory}
               name="jobCategory"
               size="small"
             />
@@ -89,7 +98,7 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.location && ""}
+              value={formik.values.location}
               multiline
               rows={4}
               name="location"
@@ -103,9 +112,8 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.education && ""}
+              Value={formik?.values?.education}
               name="education"
-              // value="Education"
               Lable="Education"
             />
             <Menues
@@ -113,7 +121,7 @@ const CompanyJobPost = () => {
               className={"company-input"}
               onChange={formik?.handleChange}
               onBlur={formik?.handleBlur}
-              value={formik?.values?.education && ""}
+              Value={formik?.values?.experiance}
               name="experiance"
               Lable="Experiance"
             />

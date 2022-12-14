@@ -1,8 +1,15 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import "./Modals.css";
 
+const InputSelect = [
+  { Lable: "Fresher", Value: "fresher" },
+  { Lable: "Junior", Value: "junior" },
+  { Lable: "Senior", Value: "senior" },
+];
 const Modals = ({
   open,
   SimpleButton,
@@ -17,7 +24,24 @@ const Modals = ({
   LocationOnIcon,
   ExplicitIcon,
   SchoolIcon,
+  profile,
+  Input,
+  Menu,
+  profileEditHandler,
 }) => {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      experiance: "",
+    },
+    validationSchema: Yup?.object({
+      name: Yup?.string()
+        .required("Required")
+        .max(30, "Must be 30 Characters or Less"),
+    }),
+
+    onSubmit: profileEditHandler,
+  });
   return (
     <>
       <Modal
@@ -46,7 +70,7 @@ const Modals = ({
                         <div className="underIcon">
                           <b>Company Name:</b>
                         </div>
-                        <div>{item.companyName}</div>
+                        <div>{item?.companyName}</div>
                       </div>
                     </div>
 
@@ -58,7 +82,7 @@ const Modals = ({
                         <div className="underIcon">
                           <b>Job Category:</b>
                         </div>
-                        <div>{item.jobCategory}</div>
+                        <div>{item?.jobCategory}</div>
                       </div>
                     </div>
                     <div className="underText">
@@ -69,7 +93,7 @@ const Modals = ({
                         <div className="underIcon">
                           <b>Required Education:</b>
                         </div>
-                        <div>{item.education}</div>
+                        <div>{item?.education}</div>
                       </div>
                     </div>
                     <div className="underText">
@@ -80,7 +104,7 @@ const Modals = ({
                         <div className="underIcon">
                           <b>Required Experiance:</b>
                         </div>
-                        <div>{item.experiance}</div>
+                        <div>{item?.experiance}</div>
                       </div>
                     </div>
                     <div className="underText">
@@ -91,12 +115,66 @@ const Modals = ({
                         <div className="underIcon">
                           <b>Address:</b>
                         </div>
-                        <div>{item.address}</div>
+                        <div>{item?.address}</div>
                       </div>
                     </div>
                   </div>
                 );
               })}
+            </div>
+          ) : profile ? (
+            <div className="profileMain">
+              <div className="profileEditHeader">
+                <div>Profile Edit</div>
+                <div>
+                  <CloseIcon onClick={Cancel} />
+                </div>
+              </div>
+              <form className="profileEditForm" onSubmit={formik?.handleSubmit}>
+                <div className="profile">
+                  <div className="profileEditText">Name:</div>
+                  <div className="profileEditInput">
+                    <Input
+                      defaultValue={profile?.name}
+                      className="profileInput"
+                      onChange={formik?.handleChange}
+                      onBlur={formik?.handleBlur}
+                      name="name"
+                    />
+                    {formik.touched.name && formik.errors.name ? (
+                      <div className="error">{formik.errors.name}</div>
+                    ) : null}
+                  </div>
+                </div>
+                {profile?.role === "Student" && (
+                  <div className="profile">
+                    <div className="profileEditText">Experiance:</div>
+                    <div className="profileEditInput">
+                      <Menu
+                        menuData={InputSelect}
+                        defaultValue={profile?.experiance}
+                        className="profileMenu"
+                        onChange={formik?.handleChange}
+                        onBlur={formik?.handleBlur}
+                        name="experiance"
+                      />
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <SimpleButton
+                    value="Update"
+                    color="success"
+                    Variant="outlined"
+                    disabled={
+                      !formik?.values?.name.trim() ||
+                      profile?.name === formik?.values?.name ||
+                      !formik?.values?.experiance.trim()  
+                    }
+                    type="submit"
+                  />
+                </div>
+              </form>
             </div>
           ) : (
             <div>

@@ -1,5 +1,9 @@
 .profilePage {
-    margin: 24px;
+    min-height: 500px;
+    display: flex;
+    height: 89vh;
+    align-items: center;
+    background-color: #f6f6fd
 }
 
 .ubaid {
@@ -8,10 +12,13 @@
     align-items: center;
     justify-content: center;
     min-height: 400px;
+    background-color: #ffff;
+    width: 40rem;
+    margin: auto
 }
 
 .profile-main {
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 
@@ -19,13 +26,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 }
 
 #avatar {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     background-size: cover;
-    object-fit: cover;
+    border-radius: 100%;
 }
 
 .avatar-img {
@@ -44,8 +52,6 @@
 }
 
 .profileData {
-    display: flex;
-    align-items: center;
     padding: 8px 0px;
 }
 
@@ -56,12 +62,10 @@
 
 .icon-avatar {
     position: absolute;
-    bottom: 0;
-    width: 200px;
+    bottom: 4px;
+    width: 250px;
     display: flex;
     justify-content: center;
-    background-color: black;
-    opacity: 0.8;
 }
 
 .profile-btn {
@@ -73,9 +77,7 @@
     display: none;
 }
 
-.profileIcon {
-    padding-right: 10px;
-}
+
 
 .profileIconText {
     padding-right: 5px;
@@ -83,20 +85,54 @@
 
 .profileText {
     font-size: 20px;
+    word-break: break-all;
 }
-.profileHeader{
-    display: none;
+
+.profileHeader {
+    display: flex;
+    height: 57vh;
+    min-height: 390px;
+    margin-left: 10px;
+    font-size: 24px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }
-@media only screen and (max-width: 600px){
-	.ubaid{
+
+@media only screen and (max-width: 665px) {
+    .ubaid {
+        background-color: #f6f6fd !important;
         flex-direction: column;
+        height: auto;
+        min-height: auto;
+        width: auto;
     }
-    .profileHead{
-        display: none;
-    }
-    .profileHeader{
+
+    .profilePage {
+        background-color: #f6f6fd !important;
+        height: auto;
         display: block;
-        font-size: 24px;
-        padding: 8px 0px;
+    }
+
+    .mainProfileData {
+        text-align: center;
+    }
+
+    .profileHeader {
+        height: auto;
+        min-height: auto;
+        margin-left: 0;
+        margin: 10px 0px;
+    }
+    .profile-main{
+        margin-right: 0;
+    }
+    .edit{
+        margin: 15px 0px;
+    }
+    #avatar{
+        height: 200px;
+        width: 200px;
+    }
+    .icon-avatar{
+        width: 200px;
     }
 }

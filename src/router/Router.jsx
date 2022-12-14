@@ -74,7 +74,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Login />} />
         </Routes>
       )}
     </React.Fragment>

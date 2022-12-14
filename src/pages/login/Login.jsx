@@ -27,9 +27,8 @@ const Login = () => {
         const errorMessage = error.message;
         Swal.fire("Sorry!", errorCode, "warning");
         setLoading(false);
-        
       });
-      setLoading(true)
+    setLoading(true);
   };
 
   const formik = useFormik({
@@ -39,13 +38,13 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Invalid email address")
+        .email("Invalid Email Address")
         .required("Required")
-        .max(30, "Must be 30 characters or less")
-        .required("Required"),
+        .max(30, "Must be 30 Characters or Less"),
       password: Yup.string()
-        .min(6, "Password in Must be 6 characters or less")
-        .required("Required"),
+        .required("Required")
+        .matches(/^\S/, "Not Allowed White Space Please Type Characters")
+        .min(6, "Password in Must be 6 Characters or Grether"),
     }),
 
     onSubmit: signupHanlder,

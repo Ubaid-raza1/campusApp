@@ -115,9 +115,9 @@ const Navbar = ({ Role }) => {
               </Menu>
             </Box>
           ) : !!Role.block ? (
-            ""
+            false
           ) : (
-            ""
+            false
           )}
           <Typography
             variant="h5"
@@ -138,32 +138,32 @@ const Navbar = ({ Role }) => {
               {!!Role?.approved && !!Role?.block
                 ? Role?.role
                 : !!Role?.block
-                ? ""
-                : ""}
+                ? false
+                : false}
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navbarHelper(Role)?.map((data) => (
-              <Button
-                key={data}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                }}
+              <Link
+                style={{ textDecoration: "none"}}
+                to={data?.link}
               >
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to={data?.link}
+                <Button
+                  key={data}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    display: "block",
+                  }}
                 >
                   {!!Role?.approved && !!Role?.block
                     ? data?.url
                     : !!Role?.block
                     ? ""
                     : ""}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             ))}
           </Box>
           {Role?.role === "Admin" ? (

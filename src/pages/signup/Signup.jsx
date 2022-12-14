@@ -67,15 +67,16 @@ const Signup = () => {
 
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Invalid email address")
+        .email("Invalid Email Address")
         .required("Required")
-        .max(30, "Email in Must be 40 characters or less")
+        .max(30, "Email in Must be 40 Characters or Less")
         .required("Required"),
       password: Yup.string()
-        .min(6, "Password in Must be 6 characters or less")
-        .required("Required"),
+        .required("Required")
+        .matches(/^\S/, "Not Allowed White Space Please Type Characters")
+        .min(6, "Password in Must be 6 Characters or Grether"),
       name: Yup.string()
-        .max(20, "Name in Must be 20 characters or less")
+        .max(20, "Name in Must be 20 Characters or Less")
         .required("Required"),
     }),
 
