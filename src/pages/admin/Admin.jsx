@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SimpleButton from "../../Components/button/Button";
-import Modal from "../../Components/modal/Modals";
 import { database } from "../../firebase/Firebase";
 import { ref, update } from "firebase/database";
 import MuiTable from "../../Components/muitable/MuiTable";
@@ -9,8 +8,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import DesTable from "../../Components/desTable/DesTable";
 import Swal from "sweetalert2";
-import CloseIcon from '@mui/icons-material/Close';
-
+import TableModal from "../../Components/modal/TableModal";
 
 const className = {
   modalMain: "CompanyModal",
@@ -24,11 +22,10 @@ const Admin = () => {
 
   const studentApplyCheak = Object.values(state?.accounts);
 
-  const cheackData = studentApplyCheak.filter((ele) => {
-    return ele?.role === "Student" && id
-      ? id?.includes(ele?.uid)
-      : []?.includes(ele?.uid);
+  const cheackData = studentApplyCheak?.filter((ele) => {
+    return ele?.role === "Student" && !!id && id?.includes(ele?.uid);
   });
+  
 
   const accounts = Object.values(state?.accounts);
   const arr = accounts?.filter(
@@ -79,7 +76,6 @@ const Admin = () => {
         );
       }
     });
-
   };
 
   return (
@@ -110,14 +106,13 @@ const Admin = () => {
         />
       )}
 
-      <Modal
+      <TableModal
         open={open}
         Cancel={Cancel}
-        user={cheackData}
+        users={cheackData}
         DesTable={DesTable}
-        SimpleButton={SimpleButton}
         className={className}
-        CloseIcon={CloseIcon}
+        title="Student Applied Check"
       />
     </>
   );

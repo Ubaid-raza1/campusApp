@@ -7,12 +7,7 @@ import MuiTable from "../../Components/muitable/MuiTable";
 import notAvailable from "../../image/notAvailable.jpg";
 import Swal from "sweetalert2";
 
-// const className = {
-//   table_main: "table-main",
-//   table: "table",
-//   table_th: "table-th",
-//   table_td: "table-td",
-// };
+
 
 const CompanyPostedJob = () => {
   const state = useSelector((state) => state);

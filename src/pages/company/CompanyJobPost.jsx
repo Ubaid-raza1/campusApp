@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./CompanyHome.css";
 import Button from "../../Components/button/Button";
 import { database } from "../../firebase/Firebase";

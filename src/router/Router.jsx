@@ -43,7 +43,7 @@ const Router = () => {
     <React.Fragment>
       {state?.uid ? (
         <React.Fragment>
-          <Navbar Role={user} />
+          <Navbar />
           <Routes>
             {currentUserRoutes?.map((item) => (
               <Route path={item?.path} element={<item.component />} />

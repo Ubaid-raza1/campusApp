@@ -1,5 +1,5 @@
 const navbarHelper = (user) => {
-  // console.log(role.role)
+
   const admin = [{ url: "Block Setion", link: "/blockSection" }];
   let company = [
     { url: "Job Post", link: "/CompanyJobPost" },

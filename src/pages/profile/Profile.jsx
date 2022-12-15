@@ -13,11 +13,14 @@ import DoneIcon from "@mui/icons-material/Done";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleButton from "../../Components/button/Button";
-import Modals from "../../Components/modal/Modals";
+import ProfileModal from "../../Components/modal/ProfleModal";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import Menu from "../../Components/menu/Menu";
 import Swal from "sweetalert2";
 
+const className = {
+  modalMain: "profileMain",
+};
 const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const [imagePreview, setImagePreview] = React.useState(false);
@@ -35,7 +38,7 @@ const Profile = () => {
       setImagePreview(e.target.files[0]);
       setUploadImage(URL.createObjectURL(e.target.files[0]));
     } else {
-      Swal.fire("Sorry!","Please Select Image", "warning");
+      Swal.fire("Sorry!", "Please Select Image", "warning");
     }
   };
 
@@ -178,7 +181,19 @@ const Profile = () => {
                   onClick={Edit}
                 />
               </div>
-              <Modals
+              <ProfileModal
+                open={open}
+                profile={user}
+                Cancel={cancel}
+                
+                Input={InputTextFields}
+                Menu={Menu}
+                profileEditHandler={profileEditHandler}
+                SimpleButton={SimpleButton}
+                title="Profile Edit"
+                className={className}
+              />
+              {/* <Modals
                 open={open}
                 profile={user}
                 Cancel={cancel}
@@ -187,7 +202,9 @@ const Profile = () => {
                 Menu={Menu}
                 profileEditHandler={profileEditHandler}
                 SimpleButton={SimpleButton}
-              />
+                title="Profile Edit"
+                className={className}
+              /> */}
             </div>
           </div>
         </>

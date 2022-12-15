@@ -2,8 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import MuiTable from "../../Components/muitable/MuiTable";
 import notAvailable from "../../image/notAvailable.jpg";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+
 
 const className = {
   table_main: "table-main",

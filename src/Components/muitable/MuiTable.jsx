@@ -198,7 +198,7 @@ const MuiTable = ({
                           value="Check"
                           Variant="outlined"
                           startIcon={<CheckIcon />}
-                          onClick={() => ApplyCheack(item.studentId)}
+                          onClick={() => ApplyCheack(item?.studentId)}
                         />
                       </StyledTableCell>
                     )

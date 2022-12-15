@@ -13,14 +13,15 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { SignOut } from "../../firebase/Firebase";
 import navbarHelper from "./NavbarHelper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SimpleButton from "../button/Button";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const settings = ["Profile", "Logout"];
 
-const Navbar = ({ Role }) => {
+const Navbar = () => {
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -63,14 +64,14 @@ const Navbar = ({ Role }) => {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {!!Role?.approved && !!Role?.block
-                ? Role?.role
-                : !!Role?.block
+              {!!state?.user?.approved && !!state?.user?.block
+                ? state?.user?.role
+                : !!state?.user?.block
                 ? ""
                 : ""}
             </Link>
           </Typography>
-          {!!Role.approved && !!Role.block ? (
+          {!!state?.user?.approved && !!state?.user?.block ? (
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -100,21 +101,21 @@ const Navbar = ({ Role }) => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {navbarHelper(Role)?.map((data) => (
-                  <MenuItem key={data} onClick={handleCloseNavMenu}>
+                {navbarHelper(state?.user)?.map((user) => (
+                  <MenuItem key={user} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
                       <Link
-                        to={data?.link}
+                        to={user?.link}
                         style={{ textDecoration: "none", color: "black" }}
                       >
-                        {data?.url}
+                        {user?.url}
                       </Link>
                     </Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-          ) : !!Role.block ? (
+          ) : !!state?.user.block ? (
             false
           ) : (
             false
@@ -135,21 +136,18 @@ const Navbar = ({ Role }) => {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {!!Role?.approved && !!Role?.block
-                ? Role?.role
-                : !!Role?.block
+              {!!state?.user?.approved && !!state?.user?.block
+                ? state?.user?.role
+                : !!state?.user?.block
                 ? false
                 : false}
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navbarHelper(Role)?.map((data) => (
-              <Link
-                style={{ textDecoration: "none"}}
-                to={data?.link}
-              >
+            {navbarHelper(state?.user)?.map((user) => (
+              <Link style={{ textDecoration: "none" }} to={user?.link}>
                 <Button
-                  key={data}
+                  key={user}
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
@@ -157,16 +155,16 @@ const Navbar = ({ Role }) => {
                     display: "block",
                   }}
                 >
-                  {!!Role?.approved && !!Role?.block
-                    ? data?.url
-                    : !!Role?.block
+                  {!!state?.user?.approved && !!state?.user?.block
+                    ? user?.url
+                    : !!state?.user?.block
                     ? ""
                     : ""}
                 </Button>
               </Link>
             ))}
           </Box>
-          {Role?.role === "Admin" ? (
+          {state?.user?.role === "Admin" ? (
             <SimpleButton
               value="SignOut"
               endIcon={<ExitToAppIcon />}
@@ -180,10 +178,10 @@ const Navbar = ({ Role }) => {
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt={Role?.name}
+                    alt={state?.user?.name}
                     src={`${
-                      Role?.fileUrl
-                        ? Role?.fileUrl
+                      state?.user?.fileUrl
+                        ? state?.user?.fileUrl
                         : "/static/images/avatar/2.jpg"
                     }`}
                   />

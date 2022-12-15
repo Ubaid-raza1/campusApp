@@ -41,7 +41,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 4px;
-    background-color: #1b5e20;
+    background-color: #000;
     color: white;
     font-size: 24px;
     text-transform: uppercase;
@@ -70,32 +70,7 @@
 }
 
 .modalheader {
-    padding-left: 15px;
-}
-
-.modalTableHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px;
-    background-color: #000;
-    color: white;
-    font-family: 'Raleway', sans-serif;
-
-}
-
-.profileEditHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px;
-    background-color: #000;
-    color: white;
-    font-family: 'Raleway', sans-serif;
-}
-
-.tableText {
-    font-size: 24px;
+    padding-left: 10px;
     font-family: 'Raleway', sans-serif;
 
 }
@@ -106,7 +81,6 @@
 
 .profile {
     display: flex;
-    /* align-items: center; */
     flex-direction: column;
 }
 
@@ -130,23 +104,17 @@
 @media only screen and (max-width: 360px) {
     .mainModal {
         width: 90%;
-
-        /* margin: 0px 18px; */
     }
 }
 
 @media only screen and (max-width: 600px) {
     .CompanyModal {
         width: 90%;
-
-
     }
 }
 
 @media only screen and (max-width: 665px) {
     .profileMain {
         width: 70%;
-
-
     }
 }

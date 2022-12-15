@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import AppsSharpIcon from "@mui/icons-material/AppsSharp";
-import Modals from "../../Components/modal/Modals";
-import SimpleButton from "../../Components/button/Button";
 import MuiTable from "../../Components/muitable/MuiTable";
-import DesTable from "../../Components/desTable/DesTable";
 import notAvailable from "../../image/notAvailable.jpg";
-import CloseIcon from '@mui/icons-material/Close';
-
+import TableModal from "../../Components/modal/TableModal";
 
 const className = {
   modalMain: "CompanyModal",
@@ -25,9 +21,7 @@ const CompanyHome = () => {
     return ele?.companyId === state?.uid && ele?.studentId;
   });
 
-  const array = Object.entries(state?.accounts)
-    .map((ele) => ele?.splice(1, 2))
-    .flatMap((ele) => ele);
+  const array = Object.values(state?.accounts)
 
   const Check = (arr) => {
     setOpen(true);
@@ -42,7 +36,8 @@ const CompanyHome = () => {
       {!!state?.user?.block && !!state?.user?.approved ? (
         postJob?.length === 0 ? (
           <div className="notAvailable">
-            <span style={{fontSize:"30px"}}>Student Applieds Job</span> <img src={notAvailable} alt="" />
+            <span style={{ fontSize: "30px" }}>Student Applieds Job</span>
+            <img src={notAvailable} alt="" />
           </div>
         ) : (
           <MuiTable
@@ -56,14 +51,12 @@ const CompanyHome = () => {
       ) : (
         <h1 id="approved">You are Block Please Contact Admin!</h1>
       )}
-      <Modals
+      <TableModal
         open={open}
         Cancel={Cancel}
-        user={user}
-        DesTable={DesTable}
-        SimpleButton={SimpleButton}
+        users={user}
         className={className}
-        CloseIcon={CloseIcon}
+        title="Student Applied Check"
       />
     </div>
   );

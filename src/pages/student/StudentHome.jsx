@@ -7,15 +7,8 @@ import { ref, update } from "firebase/database";
 import { database } from "../../firebase/Firebase";
 import Swal from "sweetalert2";
 import SimpleButton from "../../Components/button/Button";
-import Modals from "../../Components/modal/Modals";
-import CloseIcon from "@mui/icons-material/Close";
-import PersonIcon from "@mui/icons-material/Person";
-import WorkIcon from "@mui/icons-material/Work";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ExplicitIcon from "@mui/icons-material/Explicit";
-import SchoolIcon from "@mui/icons-material/School";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+
+import DetailsModal from "../../Components/modal/DetailsModal";
 
 const className = {
   modalMain: "mainModal",
@@ -34,6 +27,7 @@ const StudentHome = () => {
   const myData = postJob?.filter(
     (item) => item?.experiance == state?.user?.experiance
   );
+
   const apply = (id, data) => {
     const postListRef = ref(database, "CompanyPostJob/" + id);
     Swal.fire({
@@ -55,8 +49,8 @@ const StudentHome = () => {
     });
   };
   const Detail = (id) => {
-    setOpen(true);
     const data = myData?.filter((item) => item?.id?.includes(id));
+    setOpen(true);
     setUserData(data);
   };
   const Cancel = () => setOpen(false);
@@ -86,18 +80,12 @@ const StudentHome = () => {
       ) : (
         <h1 id="approved">You are Block Please Contact Admin!</h1>
       )}
-      <Modals
+      <DetailsModal
         open={open}
-        data={userData}
+        studentData={userData}
         Cancel={Cancel}
-        SimpleButton={SimpleButton}
         className={className}
-        CloseIcon={CloseIcon}
-        PersonIcon={PersonIcon}
-        WorkIcon={WorkIcon}
-        LocationOnIcon={LocationOnIcon}
-        ExplicitIcon={ExplicitIcon}
-        SchoolIcon={SchoolIcon}
+        title="Job Detail"
       />
     </div>
   );
