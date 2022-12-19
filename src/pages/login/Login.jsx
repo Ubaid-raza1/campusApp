@@ -24,7 +24,7 @@ const Login = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorMessage = error.message;
         Swal.fire("Sorry!", errorCode, "warning");
         setLoading(false);
       });

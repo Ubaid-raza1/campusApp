@@ -17,6 +17,7 @@ import ProfileModal from "../../Components/modal/ProfleModal";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
 import Menu from "../../Components/menu/Menu";
 import Swal from "sweetalert2";
+import ProfileDetail from "../../Components/profileDetail/ProfileDetail";
 
 const className = {
   modalMain: "profileMain",
@@ -26,7 +27,6 @@ const Profile = () => {
   const [imagePreview, setImagePreview] = React.useState(false);
   const [imageLoader, setImageLoader] = useState(false);
   const [imageFile, setUploadImage] = useState(false);
-  const [progresspercent, setProgresspercent] = useState(0);
   const state = useSelector((state) => state);
   const user = state?.user;
 
@@ -58,12 +58,10 @@ const Profile = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgresspercent(progress);
-        setImagePreview(false);
-        setImageLoader(true);
+        if (snapshot) {
+          setImagePreview(false);
+          setImageLoader(true);
+        }
       },
       (error) => {
         alert(error);
@@ -145,32 +143,16 @@ const Profile = () => {
             </div>
             <div className="mainProfileData">
               <div className="profile-data">
-                <div className="profileData">
-                  <div className="profileIconText">
-                    <b>Name:</b>
-                  </div>
-                  <div className="profileText">{user?.name}</div>
-                </div>
-                <div className="profileData">
-                  <div className="profileIconText">
-                    <b>Category:</b>
-                  </div>
-                  <div className="profileText">{user?.role}</div>
-                </div>
+                <ProfileDetail value="Name" proDetai={user?.name} />
+                <ProfileDetail value="Category" proDetai={user?.role} />
+
                 {user?.role === "Student" && (
-                  <div className="profileData">
-                    <div className="profileIconText">
-                      <b>Experiance:</b>
-                    </div>
-                    <div className="profileText">{user?.experiance}</div>
-                  </div>
+                  <ProfileDetail
+                    value="Experiance"
+                    proDetai={user?.experiance}
+                  />
                 )}
-                <div className="profileData">
-                  <div className="profileIconText">
-                    <b>Email:</b>
-                  </div>
-                  <div className="profileText">{user?.email}</div>
-                </div>
+                <ProfileDetail value="Email" proDetai={user?.email} />
               </div>
               <div className="edit">
                 <SimpleButton
@@ -185,7 +167,6 @@ const Profile = () => {
                 open={open}
                 profile={user}
                 Cancel={cancel}
-                
                 Input={InputTextFields}
                 Menu={Menu}
                 profileEditHandler={profileEditHandler}
@@ -193,18 +174,6 @@ const Profile = () => {
                 title="Profile Edit"
                 className={className}
               />
-              {/* <Modals
-                open={open}
-                profile={user}
-                Cancel={cancel}
-                CloseIcon={CloseIcon}
-                Input={InputTextFields}
-                Menu={Menu}
-                profileEditHandler={profileEditHandler}
-                SimpleButton={SimpleButton}
-                title="Profile Edit"
-                className={className}
-              /> */}
             </div>
           </div>
         </>

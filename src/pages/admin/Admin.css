@@ -5,7 +5,8 @@
 }
 
 .adminNotData {
-    text-align: start;
+    text-align: center;
     padding-left: 35px;
     margin: 20px 0px;
+    font-size: 24px;
 }

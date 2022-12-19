@@ -37,7 +37,7 @@ const Router = () => {
     company: companyRoutes,
   };
   const currentUserRoutes =
-    routesList?.[user?.role?.toLowerCase()] || studentRoutes;
+  state?.user ? routesList?.[user?.role?.toLowerCase()] || studentRoutes : []
 
   return (
     <React.Fragment>

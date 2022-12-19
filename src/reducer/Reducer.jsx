@@ -1,12 +1,11 @@
 import { UID, USER, COMPANYJOBPOSTED, ACCOUNTS } from "./Action";
 
 let initialState = {
-  user: [],
-  companyJobPost: [],
-  accounts: [],
+  user: false,
+  companyJobPost: false,
+  accounts: false,
   uid: false,
   loading: true,
-  
 };
 
 const Reducer = (state = initialState, action) => {
@@ -26,14 +25,12 @@ const Reducer = (state = initialState, action) => {
     case COMPANYJOBPOSTED:
       return {
         ...state,
-        loading: false,
         companyJobPost: action.payload ? action.payload : [],
       };
     case ACCOUNTS:
       return {
         ...state,
         accounts: action.payload ? action.payload : [],
-        loading: false,
       };
     default:
       return state;

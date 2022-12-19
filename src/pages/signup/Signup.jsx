@@ -40,7 +40,6 @@ const Signup = () => {
             email: data.email,
             role: value,
             approved: false,
-            reject: false,
             block: true,
             uid: uid,
             experiance: value === "Company" ? "" : data.experiance,
@@ -49,7 +48,7 @@ const Signup = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorMessage = error.message;
         Swal.fire("Sorry!", errorCode, "warning");
         setLoading(false);
         //   // ..

@@ -1,20 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import SimpleButton from "../../Components/button/Button";
 import { database } from "../../firebase/Firebase";
 import { update, ref } from "firebase/database";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-
 import "./Admin.css";
-import MuiTable from "../../Components/muitable/MuiTable";
-
-const table_header = ["id", "Cateogeory", "Name", "Email", "UnBlock", "Block"];
-const className = {
-  table_main: "table-main",
-  table: "table",
-  table_th: "table-th",
-  table_td: "table-td",
-};
+import AdminTable from "../../Components/tables/AdminTable";
 
 const BlockSection = () => {
   const state = useSelector((state) => state);
@@ -36,29 +25,25 @@ const BlockSection = () => {
   };
   return (
     <>
-      {student?.length === 0 ? (
-        <div className="adminNotData">
-          <h3>Students Accounts Not Available?</h3>
-        </div>
+      {!student?.length ? (
+        !!state?.user ||
+        (!!state?.accounts && (
+          <div className="adminNotData">
+            <h3>Students Accounts Not Available?</h3>
+          </div>
+        ))
       ) : (
-        <MuiTable
-          data={student}
-          block={block}
-          unBlock={unBlock}
-          SimpleButton={SimpleButton}   
-        />
+        <AdminTable admTab={student} block={block} unBlock={unBlock} />
       )}
-      {company?.length === 0 ? (
-        <div className="adminNotData">
-          <h3>Companies Accounts Not Available?</h3>
-        </div>
+      {!company?.length ? (
+        !!state?.user ||
+        (!!state?.accounts && (
+          <div className="adminNotData">
+            <h3>Companies Accounts Not Available?</h3>
+          </div>
+        ))
       ) : (
-        <MuiTable
-          data={company}
-          block={block}
-          unBlock={unBlock}
-          SimpleButton={SimpleButton}
-        />
+        <AdminTable admTab={company} block={block} unBlock={unBlock} />
       )}
     </>
   );

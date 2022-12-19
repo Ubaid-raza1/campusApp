@@ -1,7 +1,7 @@
 .profilePage {
     min-height: 500px;
     display: flex;
-    height: 89vh;
+    height: 90vh;
     align-items: center;
     background-color: #f6f6fd
 }
@@ -34,6 +34,7 @@
     height: 250px;
     background-size: cover;
     border-radius: 100%;
+    object-fit: fill;
 }
 
 .avatar-img {
@@ -109,6 +110,7 @@
     .profilePage {
         background-color: #f6f6fd !important;
         height: auto;
+        height: 592.3px;
         display: block;
     }
 
@@ -122,17 +124,21 @@
         margin-left: 0;
         margin: 10px 0px;
     }
-    .profile-main{
+
+    .profile-main {
         margin-right: 0;
     }
-    .edit{
+
+    .edit {
         margin: 15px 0px;
     }
-    #avatar{
+
+    #avatar {
         height: 200px;
         width: 200px;
     }
-    .icon-avatar{
+
+    .icon-avatar {
         width: 200px;
     }
 }

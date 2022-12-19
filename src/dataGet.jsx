@@ -14,19 +14,20 @@ const getData = (dispatch) => {
       });
       const accounts = ref(database, "Accounts/");
       onValue(accounts, (snapshot) => {
-        if (snapshot) {
+       
           dispatch({ type: ACCOUNTS, payload: snapshot.val() });
-        } else dispatch({ type: ACCOUNTS, payload: false });
+       
       });
       const companyJobPost = ref(database, "CompanyPostJob/");
       onValue(companyJobPost, (snapshot) => {
-        if (snapshot) {
           dispatch({ type: COMPANYJOBPOSTED, payload: snapshot.val() });
-        } else dispatch({ type: COMPANYJOBPOSTED, payload: false });
+    
       });
     } else {
       dispatch({ type: UID, payload: false });
       dispatch({ type: USER, payload: false });
+      dispatch({ type: COMPANYJOBPOSTED, payload: false });
+      dispatch({ type: ACCOUNTS, payload: false });
     }
   });
 };

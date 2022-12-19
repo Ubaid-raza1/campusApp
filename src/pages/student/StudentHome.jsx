@@ -6,7 +6,6 @@ import noJob from "../../image/noJobs.webp";
 import { ref, update } from "firebase/database";
 import { database } from "../../firebase/Firebase";
 import Swal from "sweetalert2";
-import SimpleButton from "../../Components/button/Button";
 
 import DetailsModal from "../../Components/modal/DetailsModal";
 
@@ -57,19 +56,21 @@ const StudentHome = () => {
 
   return (
     <div className="student-main">
-      {!!state?.user?.block && !!state?.user?.approved ? (
+      {!!state?.user && !!state?.user?.block && !!state?.user?.approved ? (
         <>
           {!myData?.length ? (
-            <div className="noJobSection">
-              <h2 style={{ fontSize: "34px" }}>No Jobs!</h2>
-              <img src={noJob} alt="noJob" className="NoJobImg" />
-            </div>
+            !!state?.user ||
+            (!!state?.companyJobPost && (
+              <div className="noJobSection">
+                <h2 style={{ fontSize: "34px" }}>No Jobs!</h2>
+                <img src={noJob} alt="noJob" className="NoJobImg" />
+              </div>
+            ))
           ) : (
             <div className="card">
               <Cards
                 cardData={myData}
                 apply={apply}
-                SimpleButton={SimpleButton}
                 Detail={Detail}
               />
             </div>

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import SimpleButton from "../button/Button";
 import ModalWrapper from "./ModalsWrapper";
-import ProfileEdit from "../profileEdit/ProfileEdit"
+import ProfileEdit from "../profileEdit/ProfileEdit";
 
 const InputSelect = [
   { Lable: "Fresher", Value: "fresher" },
@@ -81,8 +81,7 @@ const ProfileModal = ({
               Variant="outlined"
               disabled={
                 !formik?.values?.name.trim() ||
-                profile?.name === formik?.values?.name ||
-                !formik?.values?.experiance.trim()
+                profile?.name === formik?.values?.name
               }
               type="submit"
             />

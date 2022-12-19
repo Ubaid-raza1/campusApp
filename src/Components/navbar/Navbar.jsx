@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
@@ -67,8 +66,8 @@ const Navbar = () => {
               {!!state?.user?.approved && !!state?.user?.block
                 ? state?.user?.role
                 : !!state?.user?.block
-                ? ""
-                : ""}
+                ? false
+                : false}
             </Link>
           </Typography>
           {!!state?.user?.approved && !!state?.user?.block ? (
@@ -136,31 +135,24 @@ const Navbar = () => {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {!!state?.user?.approved && !!state?.user?.block
-                ? state?.user?.role
-                : !!state?.user?.block
-                ? false
-                : false}
+              {state?.user?.role}
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navbarHelper(state?.user)?.map((user) => (
               <Link style={{ textDecoration: "none" }} to={user?.link}>
-                <Button
-                  key={user}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "black",
-                    display: "block",
-                  }}
-                >
-                  {!!state?.user?.approved && !!state?.user?.block
-                    ? user?.url
-                    : !!state?.user?.block
-                    ? ""
-                    : ""}
-                </Button>
+                {!!state?.user?.approved && !!state?.user?.block ? (
+                  <SimpleButton
+                    onClick={handleCloseNavMenu}
+                    key={user}
+                    sx={{ color: "black", display: "block" }}
+                    value={user?.url}
+                  />
+                ) : !!state?.user?.block ? (
+                  false
+                ) : (
+                  false
+                )}
               </Link>
             ))}
           </Box>

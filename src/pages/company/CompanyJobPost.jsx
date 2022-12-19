@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { ref, set } from "firebase/database";
 import Menues from "../../Components/menu/Menu";
 import InputTextFields from "../../Components/inputTextFields/InputTextFields";
-import { useFormik, useField } from "formik";
+import { useFormik} from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 
@@ -35,9 +35,8 @@ const CompanyJobPost = () => {
       education: data?.education,
       companyId: state?.uid,
       id: id,
-      studentId: false,
+      studentsId: false,
       companyName: state?.user.name,
-      role: "jobPost",
       address: data?.location,
     }).then((res) => {
       Swal.fire({
