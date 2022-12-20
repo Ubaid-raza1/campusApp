@@ -35,7 +35,6 @@ const CompanyHome = () => {
         <>
           {!!state?.user && !!state?.user?.block && !!state?.user?.approved ? (
             !postJob?.length ? (
-              !!state.user ||
               (!!state?.companyJobPost && (
                 <div className="notAvailable">
                   <span style={{ fontSize: "30px" }}>Student Applieds Job</span>

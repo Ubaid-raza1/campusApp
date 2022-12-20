@@ -56,26 +56,22 @@ const StudentHome = () => {
 
   return (
     <div className="student-main">
-      {!!state?.user && !!state?.user?.block && !!state?.user?.approved ? (
+      { !!state?.user?.block && !!state?.user?.approved ? (
         <>
-          {!myData?.length ? (
-            !!state?.user ||
-            (!!state?.companyJobPost && (
-              <div className="noJobSection">
-                <h2 style={{ fontSize: "34px" }}>No Jobs!</h2>
-                <img src={noJob} alt="noJob" className="NoJobImg" />
+            {!myData?.length ? (
+              !!state?.companyJobPost && (
+                <div className="noJobSection">
+                  <h2 style={{ fontSize: "34px" }}>No Jobs!</h2>
+                  <img src={noJob} alt="noJob" className="NoJobImg" />
+                </div>
+              )
+            ) : (
+              <div className="card">
+                <Cards cardData={myData} apply={apply} Detail={Detail} />
               </div>
-            ))
-          ) : (
-            <div className="card">
-              <Cards
-                cardData={myData}
-                apply={apply}
-                Detail={Detail}
-              />
-            </div>
-          )}
-        </>
+            )}
+          </>
+        
       ) : !!state?.user?.block ? (
         <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
       ) : (

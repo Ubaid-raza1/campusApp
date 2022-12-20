@@ -36,13 +36,12 @@ const CompanyPostedJob = () => {
     <div>
       {!!state?.user?.block && !!state?.user?.approved ? (
         !postJob?.length ? (
-          !!state?.user ||
-          (!!state?.companyJobPost && (
+          !!state?.companyJobPost && (
             <div className="notAvailable">
               <span style={{ fontSize: "30px" }}>Company Posted Job</span>
               <img src={notAvailable} alt="notAvailable" />
             </div>
-          ))
+          )
         ) : (
           <CompanyTable comTab={postJob} deleteJob={Delete} />
         )

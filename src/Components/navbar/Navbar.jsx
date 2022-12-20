@@ -135,7 +135,11 @@ const Navbar = () => {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {state?.user?.role}
+              {!!state?.user?.approved && !!state?.user?.block
+                ? state?.user?.role
+                : !!state?.user?.block
+                ? false
+                : false}
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

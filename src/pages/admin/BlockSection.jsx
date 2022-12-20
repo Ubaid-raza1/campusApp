@@ -26,22 +26,20 @@ const BlockSection = () => {
   return (
     <>
       {!student?.length ? (
-        !!state?.user ||
-        (!!state?.accounts && (
+        !!state?.accounts && (
           <div className="adminNotData">
             <h3>Students Accounts Not Available?</h3>
           </div>
-        ))
+        )
       ) : (
         <AdminTable admTab={student} block={block} unBlock={unBlock} />
       )}
       {!company?.length ? (
-        !!state?.user ||
-        (!!state?.accounts && (
+        !!state?.accounts && (
           <div className="adminNotData">
             <h3>Companies Accounts Not Available?</h3>
           </div>
-        ))
+        )
       ) : (
         <AdminTable admTab={company} block={block} unBlock={unBlock} />
       )}

@@ -24,14 +24,13 @@ const StudentAppledJobs = () => {
   return (
     <div>
       {!!state?.user?.block && !!state?.user?.approved ? (
-        !applied?.length ? (
-          !!state?.user ||
-          (!!state?.companyJobPost && (
+    !applied?.length ? (
+          !!state?.companyJobPost && (
             <div className="notAvailable">
               <span style={{ fontSize: "30px" }}>Applied Jobs</span>
               <img src={notAvailable} alt="" />
             </div>
-          ))
+          )
         ) : (
           <StudentTable tabStu={applied} />
         )

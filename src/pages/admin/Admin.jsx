@@ -59,7 +59,6 @@ const Admin = () => {
   return (
     <>
       {!user?.length ? (
-        !!state?.user ||
         !!state?.companyJobPost && (
           <div className="adminNotData">
             <h3>Company Posted Jobs Not available sorry?</h3>
@@ -69,7 +68,6 @@ const Admin = () => {
         <CompanyTable appliedCheck={ApplyCheack} comTab={user} />
       )}
       {!updateArr?.length ? (
-        !!state?.user ||
         !!state?.accounts && (
           <div className="adminNotData">
             <h3>User Request Not Available?</h3>
