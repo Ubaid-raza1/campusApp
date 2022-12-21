@@ -16,7 +16,7 @@ const Router = () => {
   const state = useSelector((state) => state);
   const user = state?.user;
 
-  if (state?.loading) return <Loader />;
+  if (state?.accountsLoading) return <Loader />;
 
   const routesList = {
     admin: adminRoutes,

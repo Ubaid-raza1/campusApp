@@ -2,7 +2,6 @@ import { onValue, ref } from "firebase/database";
 import { database } from "./firebaseConfig/Firebase";
 import {
   UID,
-  USER,
   COMPANYJOBPOSTED,
   ACCOUNTS,
   NOTUSER,
@@ -16,11 +15,6 @@ const getData = (dispatch) => {
       dispatch({ type: UID, payload: user?.uid });
       const accounts = ref(database, "Accounts/");
       onValue(accounts, (snapshot) => {
-        const currentUser = Object.values(snapshot.val()).find(
-          (item) => item?.uid === user?.uid
-        );
-        dispatch({ type: USER, payload: currentUser });
-
         dispatch({ type: ACCOUNTS, payload: snapshot.val() });
       });
       const companyJobPost = ref(database, "CompanyPostJob/");
