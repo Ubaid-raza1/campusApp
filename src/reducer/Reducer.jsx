@@ -1,11 +1,13 @@
-import { UID, USER, COMPANYJOBPOSTED, ACCOUNTS } from "./Action";
+import { UID, USER, COMPANYJOBPOSTED, ACCOUNTS, NOTUSER } from "./Action";
 
 let initialState = {
-  user: false,
-  companyJobPost: false,
-  accounts: false,
-  uid: false,
+  user: {},
+  companyJobPost: [],
+  accounts: [],
+  uid: "",
   loading: true,
+  accountsLoading: true,
+  jobPostLoading: true,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -26,11 +28,24 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         companyJobPost: action.payload ? action.payload : [],
+        jobPostLoading: false,
       };
     case ACCOUNTS:
       return {
         ...state,
         accounts: action.payload ? action.payload : [],
+        accountsLoading:false
+      };
+    case NOTUSER:
+      return {
+        ...state,
+        user: {},
+        companyJobPost: [],
+        accounts: [],
+        uid: "",
+        loading: false,
+        jobPostLoading: false,
+        accountsLoading:false
       };
     default:
       return state;

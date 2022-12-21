@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { ref, remove } from "firebase/database";
-import { database } from "../../firebase/Firebase";
+import { database } from "../../firebaseConfig/Firebase";
 import notAvailable from "../../image/notAvailable.jpg";
 import Swal from "sweetalert2";
 import CompanyTable from "../../Components/tables/CompanyTable";
+import Loader from "../../Components/loader/Loader";
 
 const CompanyPostedJob = () => {
   const state = useSelector((state) => state);
@@ -36,7 +37,9 @@ const CompanyPostedJob = () => {
     <div>
       {!!state?.user?.block && !!state?.user?.approved ? (
         !postJob?.length ? (
-          !!state?.companyJobPost && (
+          state?.jobPostLoading ? (
+            <Loader />
+          ) : (
             <div className="notAvailable">
               <span style={{ fontSize: "30px" }}>Company Posted Job</span>
               <img src={notAvailable} alt="notAvailable" />

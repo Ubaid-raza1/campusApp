@@ -3,7 +3,7 @@ import RadioButton from "../../Components/radioButton/RadioButton";
 import "./Signup.css";
 import SchoolIcon from "@mui/icons-material/School";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { database } from "../../firebase/Firebase";
+import { database } from "../../firebaseConfig/Firebase";
 import { ref, set } from "firebase/database";
 import Menues from "../../Components/menu/Menu";
 import { useNavigate, Link } from "react-router-dom";

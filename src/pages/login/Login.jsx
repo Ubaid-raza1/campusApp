@@ -19,7 +19,10 @@ const Login = () => {
         // Signed in
 
         const userSig = userCredential.user;
-        if (userSig.uid) setLoading(true);
+        if (userSig.uid) {
+          
+          setLoading(true);
+        }
         navigate("/");
       })
       .catch((error) => {

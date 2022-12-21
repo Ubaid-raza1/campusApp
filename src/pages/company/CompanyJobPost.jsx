@@ -1,7 +1,7 @@
 import React from "react";
 import "./CompanyHome.css";
 import Button from "../../Components/button/Button";
-import { database } from "../../firebase/Firebase";
+import { database } from "../../firebaseConfig/Firebase";
 import { useSelector } from "react-redux";
 import { ref, set } from "firebase/database";
 import Menues from "../../Components/menu/Menu";

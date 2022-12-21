@@ -10,7 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
-import { SignOut } from "../../firebase/Firebase";
+import { MenuHelper } from "../../menuHelper/MenuHelper";
 import navbarHelper from "./NavbarHelper";
 import { useDispatch, useSelector } from "react-redux";
 import SimpleButton from "../button/Button";
@@ -166,7 +166,7 @@ const Navbar = () => {
               endIcon={<ExitToAppIcon />}
               style={{ color: "black", border: "1px solid black" }}
               Variant="outlined"
-              onClick={() => SignOut(settings[1], dispatch, navigate)}
+              onClick={() => MenuHelper(settings[1], dispatch, navigate)}
               size="small"
             />
           ) : (
@@ -203,7 +203,7 @@ const Navbar = () => {
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography
                       textAlign="center"
-                      onClick={() => SignOut(setting, dispatch, navigate)}
+                      onClick={() => MenuHelper(setting, dispatch, navigate)}
                     >
                       {setting}
                     </Typography>

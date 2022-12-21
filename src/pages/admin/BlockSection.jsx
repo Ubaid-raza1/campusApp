@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { database } from "../../firebase/Firebase";
+import { database } from "../../firebaseConfig/Firebase";
 import { update, ref } from "firebase/database";
 import "./Admin.css";
 import AdminTable from "../../Components/tables/AdminTable";
+import Loader from "../../Components/loader/Loader";
 
 const BlockSection = () => {
   const state = useSelector((state) => state);
@@ -26,7 +27,7 @@ const BlockSection = () => {
   return (
     <>
       {!student?.length ? (
-        !!state?.accounts && (
+        state?.accountsLoading? <Loader />: (
           <div className="adminNotData">
             <h3>Students Accounts Not Available?</h3>
           </div>
@@ -35,7 +36,7 @@ const BlockSection = () => {
         <AdminTable admTab={student} block={block} unBlock={unBlock} />
       )}
       {!company?.length ? (
-        !!state?.accounts && (
+        state?.accountsLoading? <Loader />: (
           <div className="adminNotData">
             <h3>Companies Accounts Not Available?</h3>
           </div>

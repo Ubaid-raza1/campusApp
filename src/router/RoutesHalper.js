@@ -9,7 +9,7 @@ import Profile from "../pages/profile/Profile";
 import Signup from "../pages/signup/Signup";
 import StudentAppledJobs from "../pages/student/StudentAppledJobs";
 import StudentHome from "../pages/student/StudentHome";
-import { Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export const adminRoutes = [
   { path: "/", component: Admin },
@@ -33,5 +33,5 @@ export const studentRoutes = [
 export const LoginSignup = [
   { path: "/Login", component: Login },
   { path: "/Signup", component: Signup },
-  { path: "*", component: () => <Navigate  to="/Login"/> },
+  { path: "*", component: () => <Navigate to="/Login" /> },
 ];

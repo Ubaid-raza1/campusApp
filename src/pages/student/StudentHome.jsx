@@ -4,8 +4,9 @@ import Cards from "../../Components/card/Card";
 import "./Student.css";
 import noJob from "../../image/noJobs.webp";
 import { ref, update } from "firebase/database";
-import { database } from "../../firebase/Firebase";
+import { database } from "../../firebaseConfig/Firebase";
 import Swal from "sweetalert2";
+import Loader from "../../Components/loader/Loader";
 
 import DetailsModal from "../../Components/modal/DetailsModal";
 
@@ -24,9 +25,9 @@ const StudentHome = () => {
   });
 
   const myData = postJob?.filter(
-    (item) => item?.experiance == state?.user?.experiance
+    (item) => item?.experiance === state?.user?.experiance
   );
-
+  console.log(state);
   const apply = (id, data) => {
     const postListRef = ref(database, "CompanyPostJob/" + id);
     Swal.fire({
@@ -56,10 +57,13 @@ const StudentHome = () => {
 
   return (
     <div className="student-main">
-      { !!state?.user?.block && !!state?.user?.approved ? (
-        <>
+      {state.user.uid ? (
+        !!state?.user?.block && !!state?.user?.approved ? (
+          <>
             {!myData?.length ? (
-              !!state?.companyJobPost && (
+              state?.jobPostLoading && state?.user?.uid? (
+                <Loader />
+              ) : (
                 <div className="noJobSection">
                   <h2 style={{ fontSize: "34px" }}>No Jobs!</h2>
                   <img src={noJob} alt="noJob" className="NoJobImg" />
@@ -71,11 +75,13 @@ const StudentHome = () => {
               </div>
             )}
           </>
-        
-      ) : !!state?.user?.block ? (
-        <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
+        ) : !!state?.user?.block ? (
+          <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
+        ) : (
+          <h1 id="approved">You are Block Please Contact Admin!</h1>
+        )
       ) : (
-        <h1 id="approved">You are Block Please Contact Admin!</h1>
+        <Loader />
       )}
       <DetailsModal
         open={open}

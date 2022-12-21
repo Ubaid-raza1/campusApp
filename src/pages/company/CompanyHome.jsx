@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import notAvailable from "../../image/notAvailable.jpg";
 import TableModal from "../../Components/modal/TableModal";
 import CompanyTable from "../../Components/tables/CompanyTable";
+import Loader from "../../Components/loader/Loader";
 
 const className = {
   modalMain: "CompanyModal",
@@ -29,18 +30,21 @@ const CompanyHome = () => {
   };
 
   const Cancel = () => setOpen(false);
+
   return (
     <div>
-      {state?.companyJobPost && (
-        <>
-          {!!state?.user && !!state?.user?.block && !!state?.user?.approved ? (
+      <>
+        {state?.user?.uid ? (
+          !!state?.user?.block && !!state?.user?.approved ? (
             !postJob?.length ? (
-              (!!state?.companyJobPost && (
+              state?.jobPostLoading ? (
+                <Loader />
+              ) : (
                 <div className="notAvailable">
                   <span style={{ fontSize: "30px" }}>Student Applieds Job</span>
                   <img src={notAvailable} alt="notAvailable" />
                 </div>
-              ))
+              )
             ) : (
               <CompanyTable comTab={postJob} appliedCheck={Check} />
             )
@@ -48,16 +52,18 @@ const CompanyHome = () => {
             <h1 id="approved">Your Request is panding Please Contact Admin!</h1>
           ) : (
             <h1 id="approved">You are Block Please Contact Admin!</h1>
-          )}
-          <TableModal
-            open={open}
-            Cancel={Cancel}
-            users={user}
-            className={className}
-            title="Student Applied Check"
-          />
-        </>
-      )}
+          )
+        ) : (
+          <Loader />
+        )}
+        <TableModal
+          open={open}
+          Cancel={Cancel}
+          users={user}
+          className={className}
+          title="Student Applied Check"
+        />
+      </>
     </div>
   );
 };

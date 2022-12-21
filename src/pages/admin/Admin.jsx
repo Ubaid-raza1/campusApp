@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { database } from "../../firebase/Firebase";
+import { database } from "../../firebaseConfig/Firebase";
 import { ref, update } from "firebase/database";
 import DesTable from "../../Components/desTable/DesTable";
 import Swal from "sweetalert2";
 import TableModal from "../../Components/modal/TableModal";
 import CompanyTable from "../../Components/tables/CompanyTable";
 import AdminTable from "../../Components/tables/AdminTable";
+import Loader from "../../Components/loader/Loader";
 
 const className = {
   modalMain: "CompanyModal",
@@ -58,24 +59,32 @@ const Admin = () => {
 
   return (
     <>
-      {!user?.length ? (
-        !!state?.companyJobPost && (
-          <div className="adminNotData">
-            <h3>Company Posted Jobs Not available sorry?</h3>
-          </div>
+      {state?.user?.uid ? (
+        !user?.length ? (
+          state?.jobPostLoading ? (
+            <Loader />
+          ) : (
+            <div className="adminNotData">
+              <h3>Company Posted Jobs Not available sorry?</h3>
+            </div>
+          )
+        ) : (
+          <CompanyTable appliedCheck={ApplyCheack} comTab={user} />
         )
       ) : (
-        <CompanyTable appliedCheck={ApplyCheack} comTab={user} />
+        <Loader />
       )}
-      {!updateArr?.length ? (
-        !!state?.accounts && (
+      {state?.user?.uid? !updateArr?.length ? (
+        state?.accountsLoading ? (
+          <Loader />
+        ) : (
           <div className="adminNotData">
             <h3>User Request Not Available?</h3>
           </div>
         )
       ) : (
         <AdminTable Accept={Accept} admTab={updateArr} />
-      )}
+      ):<Loader />}
 
       <TableModal
         open={open}

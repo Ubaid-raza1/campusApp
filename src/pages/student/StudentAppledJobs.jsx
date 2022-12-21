@@ -1,9 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import MuiTable from "../../Components/muitable/MuiTable";
-// import StudentTable from "../../Components/muitable/studentTable";
 import StudentTable from "../../Components/tables/StudentTable";
 import notAvailable from "../../image/notAvailable.jpg";
+import Loader from "../../Components/loader/Loader";
 
 const className = {
   table_main: "table-main",
@@ -24,8 +23,10 @@ const StudentAppledJobs = () => {
   return (
     <div>
       {!!state?.user?.block && !!state?.user?.approved ? (
-    !applied?.length ? (
-          !!state?.companyJobPost && (
+        !applied?.length ? (
+          state?.companyJobPost ? (
+            <Loader />
+          ) : (
             <div className="notAvailable">
               <span style={{ fontSize: "30px" }}>Applied Jobs</span>
               <img src={notAvailable} alt="" />
